@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ListViewGroup listViewGroup1 = new ListViewGroup("test", HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             modView = new ListView();
             Mod = new ColumnHeader();
@@ -43,12 +44,11 @@
             copyToolStripMenuItem = new ToolStripMenuItem();
             pasteToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
-            preferencesToolStripMenuItem = new ToolStripMenuItem();
-            sourcesToolStripMenuItem = new ToolStripMenuItem();
-            addToolStripMenuItem = new ToolStripMenuItem();
-            removeToolStripMenuItem = new ToolStripMenuItem();
+            bepInExConfigToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
-            viewSourcestxtToolStripMenuItem = new ToolStripMenuItem();
+            preferencesToolStripMenuItem = new ToolStripMenuItem();
+            utilitiesToolStripMenuItem = new ToolStripMenuItem();
+            textEditorToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             discordToolStripMenuItem = new ToolStripMenuItem();
             binxDiscordToolStripMenuItem = new ToolStripMenuItem();
@@ -62,6 +62,9 @@
             modView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             modView.CheckBoxes = true;
             modView.Columns.AddRange(new ColumnHeader[] { Mod, Author });
+            listViewGroup1.Header = "test";
+            listViewGroup1.Name = "Test Group";
+            modView.Groups.AddRange(new ListViewGroup[] { listViewGroup1 });
             modView.Location = new Point(0, 24);
             modView.Name = "modView";
             modView.Size = new Size(530, 510);
@@ -88,6 +91,7 @@
             button1.TabIndex = 1;
             button1.Text = "Install";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // searchBox
             // 
@@ -110,7 +114,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, sourcesToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, utilitiesToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(530, 24);
@@ -129,10 +133,11 @@
             quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             quitToolStripMenuItem.Size = new Size(97, 22);
             quitToolStripMenuItem.Text = "Quit";
+            quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cutToolStripMenuItem, copyToolStripMenuItem, pasteToolStripMenuItem, toolStripSeparator3, preferencesToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cutToolStripMenuItem, copyToolStripMenuItem, pasteToolStripMenuItem, toolStripSeparator3, bepInExConfigToolStripMenuItem, toolStripSeparator1, preferencesToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -140,61 +145,61 @@
             // cutToolStripMenuItem
             // 
             cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            cutToolStripMenuItem.Size = new Size(135, 22);
+            cutToolStripMenuItem.Size = new Size(155, 22);
             cutToolStripMenuItem.Text = "Cut";
+            cutToolStripMenuItem.Click += cutToolStripMenuItem_Click;
             // 
             // copyToolStripMenuItem
             // 
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.Size = new Size(135, 22);
+            copyToolStripMenuItem.Size = new Size(155, 22);
             copyToolStripMenuItem.Text = "Copy";
+            copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
             // 
             // pasteToolStripMenuItem
             // 
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            pasteToolStripMenuItem.Size = new Size(135, 22);
+            pasteToolStripMenuItem.Size = new Size(155, 22);
             pasteToolStripMenuItem.Text = "Paste";
+            pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(132, 6);
+            toolStripSeparator3.Size = new Size(152, 6);
             // 
-            // preferencesToolStripMenuItem
+            // bepInExConfigToolStripMenuItem
             // 
-            preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            preferencesToolStripMenuItem.Size = new Size(135, 22);
-            preferencesToolStripMenuItem.Text = "Preferences";
-            // 
-            // sourcesToolStripMenuItem
-            // 
-            sourcesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addToolStripMenuItem, removeToolStripMenuItem, toolStripSeparator1, viewSourcestxtToolStripMenuItem });
-            sourcesToolStripMenuItem.Name = "sourcesToolStripMenuItem";
-            sourcesToolStripMenuItem.Size = new Size(60, 20);
-            sourcesToolStripMenuItem.Text = "Sources";
-            // 
-            // addToolStripMenuItem
-            // 
-            addToolStripMenuItem.Name = "addToolStripMenuItem";
-            addToolStripMenuItem.Size = new Size(159, 22);
-            addToolStripMenuItem.Text = "Add";
-            // 
-            // removeToolStripMenuItem
-            // 
-            removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            removeToolStripMenuItem.Size = new Size(159, 22);
-            removeToolStripMenuItem.Text = "Remove";
+            bepInExConfigToolStripMenuItem.Name = "bepInExConfigToolStripMenuItem";
+            bepInExConfigToolStripMenuItem.Size = new Size(155, 22);
+            bepInExConfigToolStripMenuItem.Text = "BepInEx Config";
+            bepInExConfigToolStripMenuItem.Click += bepInExConfigToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(156, 6);
+            toolStripSeparator1.Size = new Size(152, 6);
             // 
-            // viewSourcestxtToolStripMenuItem
+            // preferencesToolStripMenuItem
             // 
-            viewSourcestxtToolStripMenuItem.Name = "viewSourcestxtToolStripMenuItem";
-            viewSourcestxtToolStripMenuItem.Size = new Size(159, 22);
-            viewSourcestxtToolStripMenuItem.Text = "View sources.txt";
+            preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            preferencesToolStripMenuItem.Size = new Size(155, 22);
+            preferencesToolStripMenuItem.Text = "Preferences";
+            preferencesToolStripMenuItem.Click += preferencesToolStripMenuItem_Click;
+            // 
+            // utilitiesToolStripMenuItem
+            // 
+            utilitiesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { textEditorToolStripMenuItem });
+            utilitiesToolStripMenuItem.Name = "utilitiesToolStripMenuItem";
+            utilitiesToolStripMenuItem.Size = new Size(58, 20);
+            utilitiesToolStripMenuItem.Text = "Utilities";
+            // 
+            // textEditorToolStripMenuItem
+            // 
+            textEditorToolStripMenuItem.Name = "textEditorToolStripMenuItem";
+            textEditorToolStripMenuItem.Size = new Size(129, 22);
+            textEditorToolStripMenuItem.Text = "Text Editor";
+            textEditorToolStripMenuItem.Click += textEditorToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -206,26 +211,26 @@
             // discordToolStripMenuItem
             // 
             discordToolStripMenuItem.Name = "discordToolStripMenuItem";
-            discordToolStripMenuItem.Size = new Size(180, 22);
+            discordToolStripMenuItem.Size = new Size(166, 22);
             discordToolStripMenuItem.Text = "Modding Discord";
             discordToolStripMenuItem.Click += discordToolStripMenuItem_Click;
             // 
             // binxDiscordToolStripMenuItem
             // 
             binxDiscordToolStripMenuItem.Name = "binxDiscordToolStripMenuItem";
-            binxDiscordToolStripMenuItem.Size = new Size(180, 22);
+            binxDiscordToolStripMenuItem.Size = new Size(166, 22);
             binxDiscordToolStripMenuItem.Text = "Binx Discord";
             binxDiscordToolStripMenuItem.Click += binxDiscordToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(177, 6);
+            toolStripSeparator2.Size = new Size(163, 6);
             // 
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Size = new Size(166, 22);
             aboutToolStripMenuItem.Text = "About";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
@@ -264,11 +269,6 @@
         private ToolStripMenuItem pasteToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem preferencesToolStripMenuItem;
-        private ToolStripMenuItem sourcesToolStripMenuItem;
-        private ToolStripMenuItem addToolStripMenuItem;
-        private ToolStripMenuItem removeToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripMenuItem viewSourcestxtToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem discordToolStripMenuItem;
         private ToolStripMenuItem binxDiscordToolStripMenuItem;
@@ -276,5 +276,9 @@
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ColumnHeader Mod;
         private ColumnHeader Author;
+        private ToolStripMenuItem utilitiesToolStripMenuItem;
+        private ToolStripMenuItem textEditorToolStripMenuItem;
+        private ToolStripMenuItem bepInExConfigToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
     }
 }

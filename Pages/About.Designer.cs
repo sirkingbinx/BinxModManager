@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             pictureBox1 = new PictureBox();
-            label1 = new Label();
+            displayNameLabel = new Label();
             label2 = new Label();
             button1 = new Button();
             button2 = new Button();
@@ -48,15 +48,15 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // label1
+            // displayNameLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(62, 198);
-            label1.Name = "label1";
-            label1.Size = new Size(193, 25);
-            label1.TabIndex = 1;
-            label1.Text = "Pygmy Mod Manager";
+            displayNameLabel.AutoSize = true;
+            displayNameLabel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            displayNameLabel.Location = new Point(62, 198);
+            displayNameLabel.Name = "displayNameLabel";
+            displayNameLabel.Size = new Size(193, 25);
+            displayNameLabel.TabIndex = 1;
+            displayNameLabel.Text = "Pygmy Mod Manager";
             // 
             // label2
             // 
@@ -66,7 +66,7 @@
             label2.Name = "label2";
             label2.Size = new Size(169, 15);
             label2.TabIndex = 2;
-            label2.Text = "(C) Copyright 2024 SirKingBinx";
+            label2.Text = "(C) Copyright 2025 SirKingBinx";
             // 
             // button1
             // 
@@ -107,7 +107,7 @@
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(displayNameLabel);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -115,6 +115,7 @@
             MinimizeBox = false;
             Name = "About";
             Text = "About PygmyModManager";
+            Load += About_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -123,7 +124,7 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private Label label1;
+        private Label displayNameLabel;
         private Label label2;
         private Button button1;
         private Button button2;

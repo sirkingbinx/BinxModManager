@@ -1,5 +1,6 @@
 ﻿using PygmyModManager.Classes;
 using PygmyModManager.Internals.SimpleJSON;
+using PygmyModManager.Properties;
 using System.Diagnostics;
 using System.Net;
 
@@ -7,7 +8,7 @@ namespace PygmyModManager.Internals
 {
     public class SourceAgent
     {
-        static List<string> sources = new();
+        public static List<string> sources = new();
 
         public static string GatherWebContent(string URL)
         {
@@ -21,14 +22,57 @@ namespace PygmyModManager.Internals
             }
         }
 
+        public static bool LineContainsCharacters(string line)
+        {
+            string validChars = "abcdefghijklmnopqrstuvwxyz123456789";
+
+            foreach (char c in line)
+            {
+                if (line.ToLower().Contains(c))
+                    return true; break;
+            }
+
+            return false;
+        }
+
+        public static List<string> ParseSourceFile(string path)
+        {
+            List<string> fileLiteral = new List<string>(File.ReadAllLines(path));
+            List<string> literalContents = new();
+
+            foreach (string line in fileLiteral)
+            {
+                if (LineContainsCharacters(line) && 
+                    (line.StartsWith("http://") || line.StartsWith("https://"))
+                )
+                {
+                    literalContents.Add(line);
+                }
+            }
+
+            return literalContents;
+        }
+
         public static List<ReleaseInfo> GatherSources()
         {
-            try {
-                sources = new List<string>(File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources"));
-            } catch (Exception ex)
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources"))
             {
-                Debug.WriteLine(ex.Message);
+                // sets a default file
+                List<string> newFile = new();
+
+                newFile.Add("# This is the sources file for the PygmyModManager application");
+                newFile.Add("# You can make comments by using \"#\"");
+                newFile.Add("");
+                newFile.Add("# Blank lines with no characters will be ignored.");
+                newFile.Add("# Please do not delete this file.");
+                newFile.Add("");
+                newFile.Add("# This is the default source for MonkeModManager");
+                newFile.Add("https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json");
+
+                File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources", newFile);
             }
+
+            sources = ParseSourceFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources");
             
             if (sources.Count == 0)
             {

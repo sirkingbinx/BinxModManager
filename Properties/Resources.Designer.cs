@@ -59,5 +59,15 @@ namespace PygmyModManager.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] _default {
+            get {
+                object obj = ResourceManager.GetObject("default", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

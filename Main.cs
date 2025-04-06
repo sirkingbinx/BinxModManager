@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using PygmyModManager.Classes;
 using PygmyModManager.Internals;
 using PygmyModManager.UtilForms;
@@ -8,7 +9,12 @@ namespace PygmyModManager
 {
     public partial class Main : Form
     {
-        public List<ReleaseInfo> Mods = new();
+        public static List<ReleaseInfo> Mods = new();
+        public static string DisplayName;
+        public static bool LoadMods;
+        public static string PreferenceInstall = "steam";
+
+        public static string InstallDir = @"";
 
         public Main()
         {
@@ -22,11 +28,41 @@ namespace PygmyModManager
 
             preferencesToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
 
-            Mods = SourceAgent.GatherSources();
+            // load reg values
+            try
+            {
+                LoadMods = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "LoadModsOnStartup", "YES") == "YES");
+            }
+            catch (Exception _)
+            {
+                LoadMods = true;
+            }
 
-            RenderMods();
+            try
+            {
+                DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "DisplayName", null);
+            }
+            catch (Exception _)
+            {
+                DisplayName = "PygmyModManager";
+            }
 
-            this.Text = "PygmyModManager";
+            try
+            {
+                PreferenceInstall = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "PrefInstallDir", "steam");
+            }
+            catch (Exception _)
+            {
+                PreferenceInstall = "steam";
+            }
+
+            if (LoadMods)
+                Mods = SourceAgent.GatherSources();
+                RenderMods();
+
+            InstallDir = FindGorillaTag.GetLocation(PreferenceInstall);
+
+            this.Text = DisplayName;
         }
 
         private void searchBox_TextChanged(object sender, EventArgs e)
@@ -34,42 +70,37 @@ namespace PygmyModManager
             RenderMods();
         }
 
-        public ListViewGroup GrabLVGroupFromString(string group)
+        public void AssignGroupToMod(ReleaseInfo mod, ListViewItem item)
         {
             foreach (ListViewGroup lvGroup in modView.Groups)
             {
-                if (lvGroup.Name == group)
-                    return lvGroup; break;
+                if (mod.Group.ToLower().Contains(lvGroup.Header.ToLower()))
+                {
+                    item.Group = lvGroup;
+                    break;
+                }
             }
 
-            return null;
+            ListViewGroup thisBrandNewGroup = new();
+            modView.Groups.Add(thisBrandNewGroup);
+
+            thisBrandNewGroup.Header = mod.Group;
         }
 
         public void RenderMods()
         {
-            modView.Clear();
+            modView.Items.Clear();
 
             string searchQuery = searchBox.Text.ToLower();
 
             foreach (ReleaseInfo thisMod in Mods)
             {
-                if (thisMod.Name.ToLower().Contains(searchQuery))
-                {
-                    ListViewItem assignedItem = new ListViewItem(thisMod.Name);
-                    modView.Items.Add(assignedItem);
+                if (!thisMod.Name.ToLower().StartsWith(searchQuery)) { continue; }
 
-                    if (GrabLVGroupFromString(thisMod.Group) != null)
-                    {
-                        assignedItem.Group = GrabLVGroupFromString(thisMod.Group);
-                    }
-                    else
-                    {
-                        ListViewGroup nGroup = new ListViewGroup(thisMod.Group);
-                        modView.Groups.Add(nGroup);
-                    }
+                ListViewItem assignedItem = modView.Items.Add(thisMod.Name);
+                assignedItem.SubItems.Add(thisMod.Author);
 
-                    assignedItem.SubItems.Add(thisMod.Author);
-                }
+                AssignGroupToMod(thisMod, assignedItem);
             }
         }
 
@@ -86,6 +117,49 @@ namespace PygmyModManager
         private void binxDiscordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://discord.gg/binx");
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.searchBox.Cut();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.searchBox.Copy();
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.searchBox.Paste();
+        }
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Pages.Preferences().ShowDialog();
+            RenderMods();
+        }
+
+        private void textEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Utils.Editor().Show();
+        }
+
+        private void bepInExConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // nothin
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            button1.Enabled = false;
+            Installer.InstallMods(modView.CheckedItems);
+            button1.Enabled = true;
         }
     }
 }

@@ -27,5 +27,11 @@ namespace PygmyModManager.UtilForms
         {
             Process.Start("https://github.com/sirkingbinx/PygmyModManager");
         }
+
+        private void About_Load(object sender, EventArgs e)
+        {
+            this.Text = "About " + Main.DisplayName;
+            this.displayNameLabel.Text = Main.DisplayName;
+        }
     }
 }
