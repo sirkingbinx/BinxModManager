@@ -30,7 +30,6 @@ namespace PygmyModManager.Classes
 
     public class ReleaseInfo
     {
-        public string Version;
         public string Link;
         public string Name;
         public string Author;
@@ -39,16 +38,14 @@ namespace PygmyModManager.Classes
         public string InstallLocation;
         public List<string> Dependencies = new List<string>();
 
-        public ReleaseInfo(string _name, string _author, string _version, string _group, string _link, string _installLocation, string _gitPath, JSONArray dependencies)
+        public ReleaseInfo(string _name, string _author, string _group, string _link, string _installLocation, string _gitPath, JSONArray dependencies)
         {
             Name = _name;
             Author = _author;
-            Version = _version;
             Group = _group;
             Link = _link;
             GitPath = _gitPath;
             InstallLocation = _installLocation;
-            Group = _group;
 
             if (dependencies == null) return;
             for (int i = 0; i < dependencies.Count; i++)
