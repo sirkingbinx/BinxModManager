@@ -10,6 +10,7 @@ It is pretty configurable and comes with a couple baked in tools:
 Download the latest relase from [here](https://github.com/sirkingbinx/PygmyModManager/releases/latest).
 ### From Source
 - Requires Visual Studio 2022
+
 Download source from latest release or from the master branch and build it with ``dotnet build``.
 
 ## Settings
