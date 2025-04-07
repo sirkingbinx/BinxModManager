@@ -72,26 +72,14 @@ namespace PygmyModManager.Internals
 
                 if (Path.GetExtension(fileName).Equals(".dll"))
                 {
-                    string dir = "";
+                    string path = Path.Combine(Path.Combine(Main.InstallDir, @"\BepInEx\plugins\"), fileName);
 
-                    if (modInfo.InstallLocation == null)
-                    {
-                        dir = Path.Combine(Main.InstallDir, @"BepInEx\plugins", Regex.Replace(fileName, @"\s+", string.Empty)); if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                    }
-                    else
-                    {
-                        dir = Path.Combine(Main.InstallDir, modInfo.InstallLocation);
-                    }
+                    if (File.Exists(path))
+                        File.Delete(path);
 
-                    if (File.Exists(Path.Combine(dir, fileName)))
-                        File.Delete(Path.Combine(dir, fileName));
-
-                    File.WriteAllBytes(Path.Combine(dir, fileName), content);
-
-                   
-                }
-                else
-                {
+                    File.WriteAllBytes(path, content);
+                    
+                } else if (Path.GetExtension(fileName).Equals(".zip")) {
                     using (MemoryStream ms = new MemoryStream(content))
                     {
                         using (var unzip = new Unzip(ms))
