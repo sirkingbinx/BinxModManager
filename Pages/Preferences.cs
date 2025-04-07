@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using PygmyModManager.Classes;
 using PygmyModManager.Internals;
 using PygmyModManager.Utils;
 using System;
@@ -46,7 +47,15 @@ namespace PygmyModManager.Pages
 
             foreach (string sourceURL in SourceAgent.sources)
             {
-                sourcesListVisual.Items.Add(sourceURL).Checked = true;
+                if (SourceAgent.IsTrustedSource(sourceURL))
+                {
+                    SourceInfo thisThing = SourceAgent.GetSourceInfo(sourceURL);
+                    sourcesListVisual.Items.Add("[Verified] " + thisThing.Title).Checked = true;
+                } else
+                {
+                    sourcesListVisual.Items.Add(sourceURL).Checked = true;
+                }
+
                 // add item & check it by default
             }
         }

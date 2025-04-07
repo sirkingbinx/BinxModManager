@@ -102,8 +102,10 @@
             fileContentBox.Location = new Point(0, 0);
             fileContentBox.Multiline = true;
             fileContentBox.Name = "fileContentBox";
+            fileContentBox.ScrollBars = ScrollBars.Both;
             fileContentBox.Size = new Size(512, 507);
             fileContentBox.TabIndex = 4;
+            fileContentBox.TextChanged += fileContentBox_TextChanged;
             // 
             // contextMenuStrip1
             // 

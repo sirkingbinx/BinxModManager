@@ -9,6 +9,7 @@ namespace PygmyModManager.Internals
     public class SourceAgent
     {
         public static List<string> sources = new();
+        public static List<SourceInfo> TrustSourceList = new();
 
         public static string GatherWebContent(string URL)
         {
@@ -20,6 +21,32 @@ namespace PygmyModManager.Internals
             {
                 return reader.ReadToEnd();
             }
+        }
+
+        public static bool IsTrustedSource(string URL)
+        {
+            foreach (SourceInfo src in TrustSourceList)
+            {
+                if (src.Link == URL)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static SourceInfo GetSourceInfo(string URL)
+        {
+            foreach (SourceInfo src in TrustSourceList)
+            {
+                if (src.Link == URL)
+                {
+                    return src;
+                }
+            }
+
+            return null;
         }
 
         public static bool LineContainsCharacters(string line)
@@ -92,6 +119,17 @@ namespace PygmyModManager.Internals
                     ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["group"], current["download_url"], current["install_location"], current["git_path"], current["dependencies"].AsArray);
                     mods.Add(release);
                 }
+            }
+
+            // trusted source info
+            var srclist = JSON.Parse(GatherWebContent("https://raw.githubusercontent.com/sirkingbinx/PygmyModManager/refs/heads/master/trusted_sources.json"));
+            var allSrc = srclist.AsArray;
+
+            for (int i = 0; i < allSrc.Count; i++)
+            {
+                JSONNode current = allSrc[i];
+                SourceInfo release = new SourceInfo(current["title"], current["author"], current["description"], current["link"]);
+                TrustSourceList.Add(release);
             }
 
             return mods;

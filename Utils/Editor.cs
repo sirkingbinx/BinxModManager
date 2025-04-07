@@ -12,9 +12,14 @@ namespace PygmyModManager.Utils
 {
     public partial class Editor : Form
     {
+        bool dirty = false;
+        bool loading = false;
+
         public Editor(string path = "")
         {
             InitializeComponent();
+
+            this.Text = "Text Editor";
 
             cutToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
             copyToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
@@ -28,6 +33,7 @@ namespace PygmyModManager.Utils
 
         void OpenFile(string path = "")
         {
+            loading = true;
             string filename = "";
 
             if (path == "")
@@ -36,14 +42,16 @@ namespace PygmyModManager.Utils
 
                 if (!(userChoseFile == DialogResult.OK)) return;
                 filename = openFileDialog1.FileName;
-            } else
+            }
+            else
             {
                 filename = path;
             }
 
-                this.Text = "File Editor - " + Path.GetFileName(filename);
+            this.Text = "Text Editor - " + Path.GetFileName(filename);
             fileLocationBox.Text = filename;
             fileContentBox.Text = File.ReadAllText(filename);
+            loading = false;
         }
 
         private void openFileBtn_Click(object sender, EventArgs e)
@@ -90,11 +98,20 @@ namespace PygmyModManager.Utils
             }
 
             File.WriteAllText(path, fileContentBox.Text); // yes, it has multiline support, don't worry :)
+            this.Text = "Text Editor - " + Path.GetFileName(fileLocationBox.Text);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFile();
+        }
+
+        private void fileContentBox_TextChanged(object sender, EventArgs e)
+        {
+            if (loading | dirty == true) return;
+
+            dirty = true;
+            this.Text = this.Text + "*"; // dirty indicator
         }
     }
 }
