@@ -24,7 +24,7 @@ namespace PygmyModManager.Internals
             return new WebClient().DownloadData(url);
         }
 
-        public static void InstallMods(ListView.CheckedListViewItemCollection items2Install)
+        public static void InstallMods(ListView.CheckedListViewItemCollection items2Install, string InstallDir)
         {
             /*
                 MIT License
@@ -72,7 +72,7 @@ namespace PygmyModManager.Internals
 
                 if (Path.GetExtension(fileName).Equals(".dll"))
                 {
-                    string path = Path.Combine(Path.Combine(Main.InstallDir, @"\BepInEx\plugins\"), fileName);
+                    string path = Path.Combine(InstallDir, @"BepInEx\plugins", fileName);
 
                     if (File.Exists(path))
                         File.Delete(path);
@@ -84,7 +84,7 @@ namespace PygmyModManager.Internals
                     {
                         using (var unzip = new Unzip(ms))
                         {
-                            unzip.ExtractToDirectory((modInfo.InstallLocation != null) ? Path.Combine(Main.InstallDir, modInfo.InstallLocation) : Main.InstallDir);
+                            unzip.ExtractToDirectory((modInfo.InstallLocation != null) ? Path.Combine(InstallDir, modInfo.InstallLocation) : InstallDir);
                         }
                     }
                 }

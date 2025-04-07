@@ -2,6 +2,7 @@ using Microsoft.Win32;
 using PygmyModManager.Classes;
 using PygmyModManager.Internals;
 using PygmyModManager.UtilForms;
+using PygmyModManager.Utils;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -152,13 +153,13 @@ namespace PygmyModManager
 
         private void bepInExConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // nothin
+            new Editor(Path.Combine(Main.InstallDir, @"BepInEx\config\BepInEx.cfg")).ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            Installer.InstallMods(modView.CheckedItems);
+            Installer.InstallMods(modView.CheckedItems, InstallDir);
             button1.Enabled = true;
         }
     }

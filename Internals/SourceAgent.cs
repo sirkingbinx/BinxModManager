@@ -89,7 +89,7 @@ namespace PygmyModManager.Internals
                 for (int i = 0; i < allMods.Count; i++)
                 {
                     JSONNode current = allMods[i];
-                    ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["version"], current["group"], current["download_url"], current["install_location"], current["git_path"], current["dependencies"].AsArray);
+                    ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["group"], current["download_url"], current["install_location"], current["git_path"], current["dependencies"].AsArray);
                     mods.Add(release);
                 }
             }
