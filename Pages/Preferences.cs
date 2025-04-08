@@ -39,8 +39,6 @@ namespace PygmyModManager.Pages
                     oculusbtn.Select();
                     break;
             }
-
-            sourcesListVisual.ItemSelectionChanged += ItemSelected;
         }
 
         void LoadSourcesVisual()
@@ -108,18 +106,6 @@ namespace PygmyModManager.Pages
         private void button2_Click(object sender, EventArgs e)
         {
             Process.Start(Main.InstallDir + @"\");
-        }
-
-        private void sourcesListVisual_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ItemSelected(object sender, EventArgs e)
-        {
-            if (sourcesListVisual.SelectedItems.Count == 0) return;
-
-            new ListInspector(sourcesListVisual.SelectedItems[0].SubItems[0].Text).ShowDialog();
         }
     }
 }

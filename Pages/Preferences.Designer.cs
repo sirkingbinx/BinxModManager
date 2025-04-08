@@ -116,7 +116,6 @@
             sourcesListVisual.TabIndex = 6;
             sourcesListVisual.UseCompatibleStateImageBehavior = false;
             sourcesListVisual.View = View.List;
-            sourcesListVisual.SelectedIndexChanged += sourcesListVisual_SelectedIndexChanged;
             // 
             // sourceHelpLabel
             // 

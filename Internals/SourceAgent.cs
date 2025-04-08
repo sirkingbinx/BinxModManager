@@ -16,6 +16,18 @@ namespace PygmyModManager.Internals
 
         public static string GatherWebContent(string URL)
         {
+            HttpWebRequest RQuest = (HttpWebRequest)HttpWebRequest.Create(URL);
+            RQuest.Method = "GET";
+            RQuest.KeepAlive = true;
+            RQuest.UserAgent = "Monke-Mod-Manager";
+
+            HttpWebResponse Response = (HttpWebResponse)RQuest.GetResponse();
+            StreamReader Sr = new StreamReader(Response.GetResponseStream());
+            string Code = Sr.ReadToEnd();
+            Sr.Close();
+            return Code;
+
+            /*
             var webRequest = WebRequest.Create(URL);
 
             using (var response = webRequest.GetResponse())
@@ -24,6 +36,7 @@ namespace PygmyModManager.Internals
             {
                 return reader.ReadToEnd();
             }
+            */
         }
 
         public static bool IsTrustedSource(string URL)
@@ -131,7 +144,7 @@ namespace PygmyModManager.Internals
             for (int i = 0; i < allSrc.Count; i++)
             {
                 JSONNode current = allSrc[i];
-                SourceInfo release = new SourceInfo(current["title"], current["author"], current["description"], current["link"]);
+                SourceInfo release = new SourceInfo(current["title"], current["link"]);
                 TrustSourceList.Add(release);
             }
 

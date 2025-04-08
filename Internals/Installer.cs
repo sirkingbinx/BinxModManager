@@ -32,12 +32,12 @@ namespace PygmyModManager.Internals
                 string downloadURL = "";
                 byte[] content;
 
-                if (false /*modInfo.GitPath != "NONE"*/) {
+                if (modInfo.GitPath != "NONE") {
                     // there is somewhere to get repos
                     string download_this_thing = SourceAgent.Repo_API_Endpoint + modInfo.GitPath + "/releases";
                     var releaseJSONData = JSON.Parse(SourceAgent.GatherWebContent(download_this_thing)).AsArray;
 
-                    downloadURL = releaseJSONData["assets"].AsArray[1]["browser_download_url"];
+                    downloadURL = releaseJSONData[0]["assets"].AsArray[0]["browser_download_url"];
                 } else {
                     downloadURL = modInfo.Link;
                 }
