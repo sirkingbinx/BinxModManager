@@ -1,8 +1,24 @@
 [
 	{
+		"comments_start": "This is info for PygmyModManager update function.",
+		"comments_continued_1": "When you ask PygmyModManager to update, it will try to pull updates from GitHub",
+		"comments_continued_2": "so it doesn't rely on humans updating the release info.",
+		"comments_continued_3": "If you want it to wait for you to add a download link, just remove the git_path from",
+		"comments_continued_4": "your release info.",
+
+		"pygmy_github_api_link": "https://api.github.com/repos/sirkingbinx/PygmyModManager/",
+		"repo_github_api_endpoint": "https://api.github.com/repos/",
+	},
+	{
 		"title": "MonkeModManager",
 		"author": "The-Graze",
 		"description": "Source for MonkeModManager",
 		"link": "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json",
+	},
+	{
+		"title": "Binx's Mods",
+		"author": "SirKingBinx",
+		"description": "All of my mods!",
+		"link": "https://github.com/sirkingbinx/dotfiles/raw/refs/heads/master/binxs_mods.json",
 	}
 ]
