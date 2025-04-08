@@ -5,6 +5,11 @@ It is pretty configurable and comes with a couple baked in tools:
 - **Text Editor**: Mostly used for editing mod configs
 - **Source Manager**: You can change what and how many sources you want. You can add custom lists of mods.
 
+It also uses the GitHub API to get the latest release of any mod, so nobody has to update a list for your mod for it to update :+1:
+
+> [!NOTE]
+> Based on docs found [here](https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28). Works given you provide a ``git_path`` in your release info.
+
 ## Install
 ### From Releases
 Download the latest relase from [here](https://github.com/sirkingbinx/PygmyModManager/releases/latest).
