@@ -44,8 +44,8 @@ namespace PygmyModManager.Classes
             Author = _author;
             Group = _group;
             Link = _link;
-            GitPath = _gitPath;
-            InstallLocation = _installLocation;
+            GitPath = _gitPath != null ? _gitPath != "NONE";
+            InstallLocation = _gitPath ? "NONE" : _installLocation;
 
             if (dependencies == null) return;
             for (int i = 0; i < dependencies.Count; i++)

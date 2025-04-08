@@ -7,18 +7,18 @@
 		"comments_continued_4": "your release info.",
 
 		"pygmy_github_api_link": "https://api.github.com/repos/sirkingbinx/PygmyModManager/",
-		"repo_github_api_endpoint": "https://api.github.com/repos/",
+		"repo_github_api_endpoint": "https://api.github.com/repos/"
 	},
 	{
 		"title": "MonkeModManager",
 		"author": "The-Graze",
 		"description": "Source for MonkeModManager",
-		"link": "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json",
+		"link": "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json"
 	},
 	{
 		"title": "Binx's Mods",
 		"author": "SirKingBinx",
 		"description": "All of my mods!",
-		"link": "https://github.com/sirkingbinx/dotfiles/raw/refs/heads/master/binxs_mods.json",
+		"link": "https://github.com/sirkingbinx/dotfiles/raw/refs/heads/master/binxs_mods.json"
 	}
 ]

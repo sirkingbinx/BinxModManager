@@ -11,6 +11,9 @@ namespace PygmyModManager.Internals
         public static List<string> sources = new();
         public static List<SourceInfo> TrustSourceList = new();
 
+        public static string Repo_API_Endpoint = "";
+        public static string Pygmy_API_Endpoint = "";
+
         public static string GatherWebContent(string URL)
         {
             var webRequest = WebRequest.Create(URL);
@@ -125,7 +128,11 @@ namespace PygmyModManager.Internals
             var srclist = JSON.Parse(GatherWebContent("https://raw.githubusercontent.com/sirkingbinx/PygmyModManager/refs/heads/master/trusted_sources.json"));
             var allSrc = srclist.AsArray;
 
-            for (int i = 0; i < allSrc.Count; i++)
+            var thisCurrent = allSrc[0]
+            Pygmy_API_Endpoint = thisCurrent["pygmy_github_api_link"];
+            Repo_API_Endpoint = thisCurrent["github_api_endpoint"];
+
+            for (int i = 1; i < allSrc.Count; i++)
             {
                 JSONNode current = allSrc[i];
                 SourceInfo release = new SourceInfo(current["title"], current["author"], current["description"], current["link"]);

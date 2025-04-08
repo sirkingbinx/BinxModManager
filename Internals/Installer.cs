@@ -26,40 +26,27 @@ namespace PygmyModManager.Internals
 
         public static void InstallMods(ListView.CheckedListViewItemCollection items2Install, string InstallDir)
         {
-            /*
-                MIT License
-
-                Copyright (c) 2021 Steven 🎀
-
-                Permission is hereby granted, free of charge, to any person obtaining a copy
-                of this software and associated documentation files (the "Software"), to deal
-                in the Software without restriction, including without limitation the rights
-                to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-                copies of the Software, and to permit persons to whom the Software is
-                furnished to do so, subject to the following conditions:
-
-                The above copyright notice and this permission notice shall be included in all
-                copies or substantial portions of the Software.
-
-                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-                AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-                LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-                OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-                SOFTWARE.
-            */
-
             foreach (ListViewItem itemToInstall in items2Install)
             {
                 ReleaseInfo modInfo = GetReleaseInfoFromMod(itemToInstall.Text);
                 if (modInfo == null) continue;
-
+                
+                string downloadURL = "";
                 byte[] content = null;
+
+                if (modInfo.GitPath != "NONE") {
+                    // there is somewhere to get repos
+                    string download_this_thing = SourceAgent.Repo_API_Endpoint + modInfo.GitPath + "/releases";
+                    var releaseJSONData = JSON.Parse(SourceAgent.GatherWebContent(download_this_thing)).AsArray;
+
+                    downloadURL = releaseJSONData["assets"].AsArray[1]["browser_download_url"];
+                } else {
+                    downloadURL = modInfo.Link;
+                }
 
                 try
                 {
-                    content = DownloadFile(modInfo.Link);
+                    content = DownloadFile(downloadURL);
                 } catch (Exception ex)
                 {
                     Console.WriteLine(ex);
@@ -68,7 +55,7 @@ namespace PygmyModManager.Internals
 
                 if (content == null) continue;
 
-                string fileName = Path.GetFileName(modInfo.Link);
+                string fileName = Path.GetFileName(downloadURL);
 
                 if (Path.GetExtension(fileName).Equals(".dll"))
                 {
