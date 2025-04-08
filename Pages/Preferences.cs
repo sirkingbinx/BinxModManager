@@ -39,6 +39,8 @@ namespace PygmyModManager.Pages
                     oculusbtn.Select();
                     break;
             }
+
+            sourcesListVisual.ItemSelectionChanged += ItemSelected;
         }
 
         void LoadSourcesVisual()
@@ -47,14 +49,19 @@ namespace PygmyModManager.Pages
 
             foreach (string sourceURL in SourceAgent.sources)
             {
+                ListViewItem t;
                 if (SourceAgent.IsTrustedSource(sourceURL))
                 {
                     SourceInfo thisThing = SourceAgent.GetSourceInfo(sourceURL);
-                    sourcesListVisual.Items.Add("[Verified] " + thisThing.Title).Checked = true;
-                } else
-                {
-                    sourcesListVisual.Items.Add(sourceURL).Checked = true;
+                    t = sourcesListVisual.Items.Add("[Verified] " + thisThing.Title);
                 }
+                else
+                {
+                    t = sourcesListVisual.Items.Add(sourceURL);
+                }
+
+                t.Checked = true;
+                t.SubItems.Add(sourceURL);
 
                 // add item & check it by default
             }
@@ -101,6 +108,18 @@ namespace PygmyModManager.Pages
         private void button2_Click(object sender, EventArgs e)
         {
             Process.Start(Main.InstallDir + @"\");
+        }
+
+        private void sourcesListVisual_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ItemSelected(object sender, EventArgs e)
+        {
+            if (sourcesListVisual.SelectedItems.Count == 0) return;
+
+            new ListInspector(sourcesListVisual.SelectedItems[0].SubItems[0].Text).ShowDialog();
         }
     }
 }

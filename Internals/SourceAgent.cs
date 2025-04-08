@@ -90,13 +90,9 @@ namespace PygmyModManager.Internals
                 // sets a default file
                 List<string> newFile = new();
 
-                newFile.Add("# This is the sources file for the PygmyModManager application");
+                newFile.Add("# This is the sources file for PygmyModManager");
                 newFile.Add("# You can make comments by using \"#\"");
                 newFile.Add("");
-                newFile.Add("# Blank lines with no characters will be ignored.");
-                newFile.Add("# Please do not delete this file.");
-                newFile.Add("");
-                newFile.Add("# This is the default source for MonkeModManager");
                 newFile.Add("https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json");
 
                 File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources", newFile);
@@ -128,11 +124,11 @@ namespace PygmyModManager.Internals
             var srclist = JSON.Parse(GatherWebContent("https://raw.githubusercontent.com/sirkingbinx/PygmyModManager/refs/heads/master/trusted_sources.json"));
             var allSrc = srclist.AsArray;
 
-            var thisCurrent = allSrc[0]
-            Pygmy_API_Endpoint = thisCurrent["pygmy_github_api_link"];
-            Repo_API_Endpoint = thisCurrent["github_api_endpoint"];
+            var thisCurrent = allSrc[0];
+            Pygmy_API_Endpoint = "https://api.github.com/repos/sirkingbinx/PygmyModManager/";
+            Repo_API_Endpoint = "https://api.github.com/repos/";
 
-            for (int i = 1; i < allSrc.Count; i++)
+            for (int i = 0; i < allSrc.Count; i++)
             {
                 JSONNode current = allSrc[i];
                 SourceInfo release = new SourceInfo(current["title"], current["author"], current["description"], current["link"]);

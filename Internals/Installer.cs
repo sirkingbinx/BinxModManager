@@ -1,8 +1,6 @@
 ﻿using PygmyModManager.Classes;
-using System.IO;
+using PygmyModManager.Internals.SimpleJSON;
 using System.Net;
-using System.Text.RegularExpressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PygmyModManager.Internals
 {
@@ -32,9 +30,9 @@ namespace PygmyModManager.Internals
                 if (modInfo == null) continue;
                 
                 string downloadURL = "";
-                byte[] content = null;
+                byte[] content;
 
-                if (modInfo.GitPath != "NONE") {
+                if (false /*modInfo.GitPath != "NONE"*/) {
                     // there is somewhere to get repos
                     string download_this_thing = SourceAgent.Repo_API_Endpoint + modInfo.GitPath + "/releases";
                     var releaseJSONData = JSON.Parse(SourceAgent.GatherWebContent(download_this_thing)).AsArray;

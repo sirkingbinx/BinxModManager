@@ -39,23 +39,23 @@
             sourcesAddBtnVisual = new Button();
             label1 = new Label();
             prefLoadSourcesOnStartup = new CheckBox();
+            gtPrefPage = new TabPage();
+            button2 = new Button();
+            label3 = new Label();
+            gameLabel = new Label();
+            textBox1 = new TextBox();
+            custombutton = new RadioButton();
+            oculusbtn = new RadioButton();
+            steambtn = new RadioButton();
+            label2 = new Label();
             appearancePrefPage = new TabPage();
             modMgrDisplayName = new TextBox();
             modMgrDisplayNameLabel = new Label();
             infoLabel = new Label();
-            gtPrefPage = new TabPage();
-            label2 = new Label();
-            steambtn = new RadioButton();
-            oculusbtn = new RadioButton();
-            custombutton = new RadioButton();
-            textBox1 = new TextBox();
-            gameLabel = new Label();
-            label3 = new Label();
-            button2 = new Button();
             tabControl1.SuspendLayout();
             sourcesPrefPage.SuspendLayout();
-            appearancePrefPage.SuspendLayout();
             gtPrefPage.SuspendLayout();
+            appearancePrefPage.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -116,6 +116,7 @@
             sourcesListVisual.TabIndex = 6;
             sourcesListVisual.UseCompatibleStateImageBehavior = false;
             sourcesListVisual.View = View.List;
+            sourcesListVisual.SelectedIndexChanged += sourcesListVisual_SelectedIndexChanged;
             // 
             // sourceHelpLabel
             // 
@@ -164,6 +165,102 @@
             prefLoadSourcesOnStartup.Text = "Load Sources on Startup";
             prefLoadSourcesOnStartup.UseVisualStyleBackColor = true;
             // 
+            // gtPrefPage
+            // 
+            gtPrefPage.Controls.Add(button2);
+            gtPrefPage.Controls.Add(label3);
+            gtPrefPage.Controls.Add(gameLabel);
+            gtPrefPage.Controls.Add(textBox1);
+            gtPrefPage.Controls.Add(custombutton);
+            gtPrefPage.Controls.Add(oculusbtn);
+            gtPrefPage.Controls.Add(steambtn);
+            gtPrefPage.Controls.Add(label2);
+            gtPrefPage.Location = new Point(4, 24);
+            gtPrefPage.Name = "gtPrefPage";
+            gtPrefPage.Size = new Size(404, 390);
+            gtPrefPage.TabIndex = 2;
+            gtPrefPage.Text = "Gorilla Tag";
+            gtPrefPage.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(10, 334);
+            button2.Name = "button2";
+            button2.Size = new Size(389, 23);
+            button2.TabIndex = 7;
+            button2.Text = "Open Install Directory";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(9, 106);
+            label3.Name = "label3";
+            label3.Size = new Size(383, 30);
+            label3.TabIndex = 6;
+            label3.Text = "PygmyModManager will try to load this version of the game before any\r\nother installs it may find.\r\n";
+            // 
+            // gameLabel
+            // 
+            gameLabel.AutoSize = true;
+            gameLabel.Location = new Point(9, 367);
+            gameLabel.Name = "gameLabel";
+            gameLabel.Size = new Size(76, 15);
+            gameLabel.TabIndex = 5;
+            gameLabel.Text = "Path Loaded:";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(87, 363);
+            textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
+            textBox1.Size = new Size(312, 23);
+            textBox1.TabIndex = 4;
+            textBox1.WordWrap = false;
+            // 
+            // custombutton
+            // 
+            custombutton.AutoSize = true;
+            custombutton.Location = new Point(10, 78);
+            custombutton.Name = "custombutton";
+            custombutton.Size = new Size(100, 19);
+            custombutton.TabIndex = 3;
+            custombutton.TabStop = true;
+            custombutton.Text = "Custom (N/A)";
+            custombutton.UseVisualStyleBackColor = true;
+            // 
+            // oculusbtn
+            // 
+            oculusbtn.AutoSize = true;
+            oculusbtn.Location = new Point(10, 53);
+            oculusbtn.Name = "oculusbtn";
+            oculusbtn.Size = new Size(83, 19);
+            oculusbtn.TabIndex = 2;
+            oculusbtn.TabStop = true;
+            oculusbtn.Text = "Oculus Rift";
+            oculusbtn.UseVisualStyleBackColor = true;
+            // 
+            // steambtn
+            // 
+            steambtn.AutoSize = true;
+            steambtn.Location = new Point(10, 28);
+            steambtn.Name = "steambtn";
+            steambtn.Size = new Size(58, 19);
+            steambtn.TabIndex = 1;
+            steambtn.TabStop = true;
+            steambtn.Text = "Steam";
+            steambtn.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(8, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(126, 15);
+            label2.TabIndex = 0;
+            label2.Text = "Game Load Preference";
+            // 
             // appearancePrefPage
             // 
             appearancePrefPage.Controls.Add(modMgrDisplayName);
@@ -201,102 +298,6 @@
             infoLabel.Size = new Size(0, 15);
             infoLabel.TabIndex = 2;
             // 
-            // gtPrefPage
-            // 
-            gtPrefPage.Controls.Add(button2);
-            gtPrefPage.Controls.Add(label3);
-            gtPrefPage.Controls.Add(gameLabel);
-            gtPrefPage.Controls.Add(textBox1);
-            gtPrefPage.Controls.Add(custombutton);
-            gtPrefPage.Controls.Add(oculusbtn);
-            gtPrefPage.Controls.Add(steambtn);
-            gtPrefPage.Controls.Add(label2);
-            gtPrefPage.Location = new Point(4, 24);
-            gtPrefPage.Name = "gtPrefPage";
-            gtPrefPage.Size = new Size(404, 390);
-            gtPrefPage.TabIndex = 2;
-            gtPrefPage.Text = "Gorilla Tag";
-            gtPrefPage.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(8, 9);
-            label2.Name = "label2";
-            label2.Size = new Size(126, 15);
-            label2.TabIndex = 0;
-            label2.Text = "Game Load Preference";
-            // 
-            // steambtn
-            // 
-            steambtn.AutoSize = true;
-            steambtn.Location = new Point(10, 28);
-            steambtn.Name = "steambtn";
-            steambtn.Size = new Size(58, 19);
-            steambtn.TabIndex = 1;
-            steambtn.TabStop = true;
-            steambtn.Text = "Steam";
-            steambtn.UseVisualStyleBackColor = true;
-            // 
-            // oculusbtn
-            // 
-            oculusbtn.AutoSize = true;
-            oculusbtn.Location = new Point(10, 53);
-            oculusbtn.Name = "oculusbtn";
-            oculusbtn.Size = new Size(83, 19);
-            oculusbtn.TabIndex = 2;
-            oculusbtn.TabStop = true;
-            oculusbtn.Text = "Oculus Rift";
-            oculusbtn.UseVisualStyleBackColor = true;
-            // 
-            // custombutton
-            // 
-            custombutton.AutoSize = true;
-            custombutton.Location = new Point(10, 78);
-            custombutton.Name = "custombutton";
-            custombutton.Size = new Size(100, 19);
-            custombutton.TabIndex = 3;
-            custombutton.TabStop = true;
-            custombutton.Text = "Custom (N/A)";
-            custombutton.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(87, 363);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(312, 23);
-            textBox1.TabIndex = 4;
-            textBox1.WordWrap = false;
-            // 
-            // gameLabel
-            // 
-            gameLabel.AutoSize = true;
-            gameLabel.Location = new Point(9, 367);
-            gameLabel.Name = "gameLabel";
-            gameLabel.Size = new Size(76, 15);
-            gameLabel.TabIndex = 5;
-            gameLabel.Text = "Path Loaded:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(9, 106);
-            label3.Name = "label3";
-            label3.Size = new Size(383, 30);
-            label3.TabIndex = 6;
-            label3.Text = "PygmyModManager will try to load this version of the game before any\r\nother installs it may find.\r\n";
-            // 
-            // button2
-            // 
-            button2.Location = new Point(10, 334);
-            button2.Name = "button2";
-            button2.Size = new Size(389, 23);
-            button2.TabIndex = 7;
-            button2.Text = "Open Install Directory";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
             // Preferences
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -313,10 +314,10 @@
             tabControl1.ResumeLayout(false);
             sourcesPrefPage.ResumeLayout(false);
             sourcesPrefPage.PerformLayout();
-            appearancePrefPage.ResumeLayout(false);
-            appearancePrefPage.PerformLayout();
             gtPrefPage.ResumeLayout(false);
             gtPrefPage.PerformLayout();
+            appearancePrefPage.ResumeLayout(false);
+            appearancePrefPage.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

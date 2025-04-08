@@ -54,6 +54,7 @@
             binxDiscordToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             aboutToolStripMenuItem = new ToolStripMenuItem();
+            listInspectorToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -189,7 +190,7 @@
             // 
             // utilitiesToolStripMenuItem
             // 
-            utilitiesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { textEditorToolStripMenuItem });
+            utilitiesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { textEditorToolStripMenuItem, listInspectorToolStripMenuItem });
             utilitiesToolStripMenuItem.Name = "utilitiesToolStripMenuItem";
             utilitiesToolStripMenuItem.Size = new Size(58, 20);
             utilitiesToolStripMenuItem.Text = "Utilities";
@@ -197,7 +198,7 @@
             // textEditorToolStripMenuItem
             // 
             textEditorToolStripMenuItem.Name = "textEditorToolStripMenuItem";
-            textEditorToolStripMenuItem.Size = new Size(129, 22);
+            textEditorToolStripMenuItem.Size = new Size(180, 22);
             textEditorToolStripMenuItem.Text = "Text Editor";
             textEditorToolStripMenuItem.Click += textEditorToolStripMenuItem_Click;
             // 
@@ -233,6 +234,12 @@
             aboutToolStripMenuItem.Size = new Size(166, 22);
             aboutToolStripMenuItem.Text = "About";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            // 
+            // listInspectorToolStripMenuItem
+            // 
+            listInspectorToolStripMenuItem.Name = "listInspectorToolStripMenuItem";
+            listInspectorToolStripMenuItem.Size = new Size(180, 22);
+            listInspectorToolStripMenuItem.Text = "List Inspector";
             // 
             // Main
             // 
@@ -280,5 +287,6 @@
         private ToolStripMenuItem textEditorToolStripMenuItem;
         private ToolStripMenuItem bepInExConfigToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem listInspectorToolStripMenuItem;
     }
 }
