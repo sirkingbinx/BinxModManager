@@ -71,7 +71,7 @@ namespace PygmyModManager.Pages
 
             foreach (ListViewItem checkedItem in sourcesListVisual.CheckedItems)
             {
-                SourceAgent.sources.Add(checkedItem.Text);
+                SourceAgent.sources.Add(checkedItem.SubItems[0].Text);
             }
 
             // (Sources) Load Sources on Startup

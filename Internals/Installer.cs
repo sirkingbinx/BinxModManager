@@ -69,7 +69,11 @@ namespace PygmyModManager.Internals
                     {
                         using (var unzip = new Unzip(ms))
                         {
-                            unzip.ExtractToDirectory((modInfo.InstallLocation != null) ? Path.Combine(InstallDir, modInfo.InstallLocation) : InstallDir);
+                            string installLocation = "";
+
+                            if (modInfo.InstallLocation != null || modInfo.InstallLocation != "")
+
+                            unzip.ExtractToDirectory(installLocation);
                         }
                     }
                 }
