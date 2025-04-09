@@ -1,10 +1,10 @@
-﻿using PygmyModManager.Classes;
-using PygmyModManager.Internals.SimpleJSON;
-using PygmyModManager.Properties;
+﻿using BinxModManager.Classes;
+using BinxModManager.Internals.SimpleJSON;
+using BinxModManager.Properties;
 using System.Diagnostics;
 using System.Net;
 
-namespace PygmyModManager.Internals
+namespace BinxModManager.Internals
 {
     public class SourceAgent
     {
@@ -98,20 +98,20 @@ namespace PygmyModManager.Internals
 
         public static List<ReleaseInfo> GatherSources()
         {
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources"))
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.atxt"))
             {
                 // sets a default file
                 List<string> newFile = new();
 
-                newFile.Add("# This is the sources file for PygmyModManager");
+                newFile.Add("# This is the sources file for Binx's Mod Manager");
                 newFile.Add("# You can make comments by using \"#\"");
                 newFile.Add("");
                 newFile.Add("https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json");
 
-                File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources", newFile);
+                File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.atxt", newFile);
             }
 
-            sources = ParseSourceFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources");
+            sources = ParseSourceFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.atxt");
             
             if (sources.Count == 0)
             {
@@ -134,11 +134,11 @@ namespace PygmyModManager.Internals
             }
 
             // trusted source info
-            var srclist = JSON.Parse(GatherWebContent("https://raw.githubusercontent.com/sirkingbinx/PygmyModManager/refs/heads/master/trusted_sources.json"));
+            var srclist = JSON.Parse(GatherWebContent("https://raw.githubusercontent.com/sirkingbinx/BinxModManager/refs/heads/master/trusted_sources.json"));
             var allSrc = srclist.AsArray;
 
             var thisCurrent = allSrc[0];
-            Pygmy_API_Endpoint = "https://api.github.com/repos/sirkingbinx/PygmyModManager/";
+            Pygmy_API_Endpoint = "https://api.github.com/repos/sirkingbinx/BinxModManager/";
             Repo_API_Endpoint = "https://api.github.com/repos/";
 
             for (int i = 0; i < allSrc.Count; i++)

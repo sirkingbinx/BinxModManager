@@ -1,4 +1,4 @@
-﻿namespace PygmyModManager.Classes
+﻿namespace BinxModManager.Classes
 {
     public class SourceInfo(string _title, string _link)
     {

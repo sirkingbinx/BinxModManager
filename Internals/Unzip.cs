@@ -30,7 +30,7 @@ using System.Text;
         SOFTWARE.
 */
 
-namespace PygmyModManager.Internals
+namespace BinxModManager.Internals
 {
     /// <summary>
     /// Unzip helper class.

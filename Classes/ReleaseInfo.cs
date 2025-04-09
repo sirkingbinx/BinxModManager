@@ -1,6 +1,6 @@
-﻿using PygmyModManager.Internals.SimpleJSON;
+﻿using BinxModManager.Internals.SimpleJSON;
 
-namespace PygmyModManager.Classes
+namespace BinxModManager.Classes
 {
     /*
         MIT License
