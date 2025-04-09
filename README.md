@@ -29,17 +29,19 @@ Download source from latest release or from the master branch and build it with 
 - **Gorilla Tag / Path**: The current path the game is using.
 
 ### Appearance
-- **Appearance / Display Name**: Replaces `BinxModManager` in the titlebar, about page, and most other places it shows up.
+- **Appearance / Display Name**: Replaces `Binx's Mod Manager` in the titlebar, about page, and most other places it shows up.
 
 ## List Creation Guide
-Here is a base for a bunch of mods. Pygmy requires all of these, see the next example for optional items you can add.
+Here is a base for a bunch of mods. Source parsing requires all of these, see the next example for optional items you can add.
 ```json
 [
     {
         "name": "Mod",
         "author": "Author",
         "group": "Mod", // can be anything, it will be created when adding mods
-        "git_path": "user/repo", // git repo for source code
+
+        // you MUST have either git_path, link, or both. when it sees git_path, it will prefer it at all times
+        "git_path": "user/repo", // git repo for source code 
         "link": "https://github.com/user/repo/releases/myfile.dll" // link to download latest release (the .dll itself, not the release page)
     }
 ]
