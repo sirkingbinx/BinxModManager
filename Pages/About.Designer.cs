@@ -1,4 +1,4 @@
-﻿namespace PygmyModManager.UtilForms
+﻿namespace BinxModManager.UtilForms
 {
     partial class About
     {
@@ -56,7 +56,7 @@
             displayNameLabel.Name = "displayNameLabel";
             displayNameLabel.Size = new Size(193, 25);
             displayNameLabel.TabIndex = 1;
-            displayNameLabel.Text = "Pygmy Mod Manager";
+            displayNameLabel.Text = "Binx's Mod Manager";
             // 
             // label2
             // 
@@ -74,7 +74,7 @@
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 3;
-            button1.Text = "Source";
+            button1.Text = "License";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -114,7 +114,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "About";
-            Text = "About PygmyModManager";
+            Text = "About BinxModManager";
             Load += About_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

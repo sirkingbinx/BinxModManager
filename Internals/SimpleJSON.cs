@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PygmyModManager.Internals
+namespace BinxModManager.Internals
 {
     /* * * * *
    * A simple JSON Parser / builder

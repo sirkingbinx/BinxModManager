@@ -1,5 +1,5 @@
-# PygmyModManager
-PygmyModManager is a fast and simple mod manager for Gorilla Tag (or most BepInEx-based games) that reads from MonkeModManager info lists.
+# Binx's Mod Manager
+Binx's Mod Manager is a fast and simple mod manager for Gorilla Tag (or most BepInEx-based games) that reads from MonkeModManager info lists.
 It is pretty configurable and comes with a couple baked in tools:
 
 - **Text Editor**: Mostly used for editing mod configs
@@ -12,7 +12,7 @@ It also uses the GitHub API to get the latest release of any mod, so nobody has 
 
 ## Install
 ### From Releases
-Download the latest relase from [here](https://github.com/sirkingbinx/PygmyModManager/releases/latest).
+Download the latest relase from [here](https://github.com/sirkingbinx/BinxModManager/releases/latest).
 ### From Source
 - Requires Visual Studio 2022
 
@@ -29,7 +29,7 @@ Download source from latest release or from the master branch and build it with 
 - **Gorilla Tag / Path**: The current path the game is using.
 
 ### Appearance
-- **Appearance / Display Name**: Replaces `PygmyModManager` in the titlebar, about page, and most other places it shows up.
+- **Appearance / Display Name**: Replaces `BinxModManager` in the titlebar, about page, and most other places it shows up.
 
 ## List Creation Guide
 Here is a base for a bunch of mods. Pygmy requires all of these, see the next example for optional items you can add.
