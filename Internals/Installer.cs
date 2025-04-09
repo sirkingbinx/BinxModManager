@@ -1,8 +1,8 @@
-﻿using BinxModManager.Classes;
-using BinxModManager.Internals.SimpleJSON;
+﻿using PygmyModManager.Classes;
+using PygmyModManager.Internals.SimpleJSON;
 using System.Net;
 
-namespace BinxModManager.Internals
+namespace PygmyModManager.Internals
 {
     public class Installer
     {

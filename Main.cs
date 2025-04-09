@@ -1,12 +1,12 @@
 using Microsoft.Win32;
-using BinxModManager.Classes;
-using BinxModManager.Internals;
-using BinxModManager.UtilForms;
-using BinxModManager.Utils;
+using PygmyModManager.Classes;
+using PygmyModManager.Internals;
+using PygmyModManager.UtilForms;
+using PygmyModManager.Utils;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace BinxModManager
+namespace PygmyModManager
 {
     public partial class Main : Form
     {
@@ -32,7 +32,7 @@ namespace BinxModManager
             // load reg values
             try
             {
-                LoadMods = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\BinxModManager", "LoadModsOnStartup", "YES") == "YES");
+                LoadMods = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "LoadModsOnStartup", "YES") == "YES");
             }
             catch (Exception _)
             {
@@ -41,16 +41,16 @@ namespace BinxModManager
 
             try
             {
-                DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\BinxModManager", "DisplayName", null);
+                DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "DisplayName", null);
             }
             catch (Exception _)
             {
-                DisplayName = "Binx's Mod Manager";
+                DisplayName = "PygmyModManager";
             }
 
             try
             {
-                PreferenceInstall = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\BinxModManager", "PrefInstallDir", "steam");
+                PreferenceInstall = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "PrefInstallDir", "steam");
             }
             catch (Exception _)
             {

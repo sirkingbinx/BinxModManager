@@ -39,7 +39,7 @@ using System.Windows.Forms;
     SOFTWARE.
 */
 
-namespace BinxModManager.Utils
+namespace PygmyModManager.Utils
 {
     #region Main
 
@@ -48,7 +48,7 @@ namespace BinxModManager.Utils
         bool dirty = false;
         bool loading = false;
 
-        public Editor(string path = "", List<string> loadLines = new(), string _filename = "unsaved buffer")
+        public Editor(string path = "")
         {
             InitializeComponent();
 
@@ -61,25 +61,29 @@ namespace BinxModManager.Utils
             openToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
             saveChangesToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
 
-            OpenFile(path, loadLines, _filename);
+            OpenFile(path);
         }
 
-        void OpenFile(string path = "", List<string> lines = new(), string _filename = "unsaved buffer")
+        void OpenFile(string path = "")
         {
             loading = true;
-
             string filename = "";
-            bool loadingFromTxt = false;
 
-            if (path != "")
+            if (path == "")
+            {
+                DialogResult userChoseFile = openFileDialog1.ShowDialog();
+
+                if (!(userChoseFile == DialogResult.OK)) return;
+                filename = openFileDialog1.FileName;
+            }
+            else
+            {
                 filename = path;
-            
-            if (lines.Count > 0)
-                loadingFromTxt = true; filename = _filename;
+            }
 
             this.Text = "Text Editor - " + Path.GetFileName(filename);
             fileLocationBox.Text = filename;
-            fileContentBox.Text = loadingFromTxt ? lines : File.ReadAllText(filename);
+            fileContentBox.Text = File.ReadAllText(filename);
             loading = false;
         }
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinxModManager.Internals
+namespace PygmyModManager.Internals
 {
     public class FindGorillaTag
     {
@@ -153,7 +153,7 @@ namespace BinxModManager.Internals
 
         private static string GetCustomLocation()
         {
-            return (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\BinxModManager", "LocalUserGTPath", "");
+            return (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "LocalUserGTPath", "");
         }
     }
 }

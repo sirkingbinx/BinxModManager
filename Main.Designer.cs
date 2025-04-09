@@ -1,4 +1,4 @@
-﻿namespace BinxModManager
+﻿namespace PygmyModManager
 {
     partial class Main
     {
@@ -247,7 +247,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "Main";
-            Text = "BinxModManager.exe";
+            Text = "pygmymodmanager.exe";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

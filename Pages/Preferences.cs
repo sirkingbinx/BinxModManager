@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
-using BinxModManagerClasses;
-using BinxModManager.Internals;
-using BinxModManager.Utils;
+using PygmyModManager.Classes;
+using PygmyModManager.Internals;
+using PygmyModManager.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BinxModManager.Pages
+namespace PygmyModManager.Pages
 {
     public partial class Preferences : Form
     {
@@ -22,7 +22,7 @@ namespace BinxModManager.Pages
             InitializeComponent();
             LoadSourcesVisual();
 
-            modMgrDisplayName.Text = Main.DisplayName != null ? Main.DisplayName : "Binx's Mod Manager";
+            modMgrDisplayName.Text = Main.DisplayName != null ? Main.DisplayName : "PygmyModManager";
             prefLoadSourcesOnStartup.Checked = Main.LoadMods;
 
             textBox1.Text = Main.InstallDir; // install directory textbox
@@ -75,10 +75,10 @@ namespace BinxModManager.Pages
             }
 
             // (Sources) Load Sources on Startup
-            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\BinxModManager", "LoadModsOnStartup", this.prefLoadSourcesOnStartup.Checked ? "YES" : "NO");
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "LoadModsOnStartup", this.prefLoadSourcesOnStartup.Checked ? "YES" : "NO");
 
             // (Appearance) Display Name
-            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\BinxModManager", "DisplayName", this.modMgrDisplayName.Text);
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "DisplayName", this.modMgrDisplayName.Text);
 
             string preferenceInstall = "steam";
 
@@ -87,7 +87,7 @@ namespace BinxModManager.Pages
             if (custombutton.Checked) preferenceInstall = "custom";
 
             // (Gorilla Tag) Default Loaded Install
-            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\BinxModManager", "PrefInstallDir", preferenceInstall);
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "PrefInstallDir", preferenceInstall);
 
             this.Close();
         }

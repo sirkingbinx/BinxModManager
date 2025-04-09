@@ -1,4 +1,4 @@
-namespace BinxModManager
+namespace PygmyModManager
 {
     internal static class Program
     {

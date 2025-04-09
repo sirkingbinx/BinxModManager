@@ -1,4 +1,4 @@
-﻿namespace BinxModManager.Pages
+﻿namespace PygmyModManager.Pages
 {
     partial class Preferences
     {
@@ -198,7 +198,7 @@
             label3.Name = "label3";
             label3.Size = new Size(383, 30);
             label3.TabIndex = 6;
-            label3.Text = "BinxModManager will try to load this version of the game before any\r\nother installs it may find.\r\n";
+            label3.Text = "PygmyModManager will try to load this version of the game before any\r\nother installs it may find.\r\n";
             // 
             // gameLabel
             // 
