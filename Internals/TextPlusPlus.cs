@@ -59,9 +59,6 @@ namespace PygmyModManager.Internals {
             List<string> fileLiteral = new List<string>(File.ReadAllLines(path));
             List<string> literalContents = new();
 
-            bool gatheringVarDetails = false;
-            string varNameCurrent = "";
-
             for (int i = 0; i < fileLiteral.Count; i++)
             {
                 string line = fileLiteral[i];
@@ -78,35 +75,23 @@ namespace PygmyModManager.Internals {
                         if (IsSpecialCharacter(tc) && tc == "$" && gatheringVarDetails == false) {
                             gatheringVarDetails = true;
                             varNameCurrent = "";
-                        } else {
-                            if (IsSpecialCharacter(tc) && tc == "$" && gatheringVarDetails == true) {
-                                // ERR: bad variable reference in definition of var
-                                return (new List<string>(), 1, $"(txp) Line {visualLine}: Trying to name var with other variable. Did you forget the = ?")
-                            }
                         }
 
                         // space
                         if (IsSpecialCharacter(tc) && tc == " ") {
-                            if (gatheringVarDetails == true) {
+                            if (gatheringVarDetails) {
                                 gatheringVarDetails = false;
 
                                 if (IsVar(varNameCurrent)) {
-                                    literalMeaning += GrabVar(varNameCurrent);
+                                literalMeaning += GrabVar(varNameCurrent);
                                 } else {
-                                    if (varNameCurrent == "") {
-                                        // ERR: blank variable name
-                                        return (new List<string>(), 1, $"(txp) Line {visualLine}: Variable name cannot be empty or blank. Did you forget to add the name?")
-                                    } else {
-                                        // ERR: undefined variable reference
-                                        return (new List<string>(), 1, $"(txp) Line {visualLine}: Undefined variable {varNameCurrent}. Try defining it?")
-                                    }
+                                    if (varNameCurrent == "") 
+                                        return (new List<string>(), 1, $"(txp) Line {visualLine}: GET Variable name cannot be empty or blank. Did you forget to add the name?");
+                                    else
+                                        return (new List<string>(), 1, $"(txp) Line {visualLine}: Undefined variable {varNameCurrent}. Check docs for correct vars?");
+                                
                                 }
                             }
-                        }
-
-                        // vars (set)
-                        if (IsSpecialCharacter(tc) && tc == "=") {
-
                         }
 
                         if (!IsSpecialCharacter(tc) && gatheringVarDetails == false)
