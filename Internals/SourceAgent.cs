@@ -65,37 +65,6 @@ namespace PygmyModManager.Internals
             return null;
         }
 
-        public static bool LineContainsCharacters(string line)
-        {
-            string validChars = "abcdefghijklmnopqrstuvwxyz123456789";
-
-            foreach (char c in line)
-            {
-                if (line.ToLower().Contains(c))
-                    return true; break;
-            }
-
-            return false;
-        }
-
-        public static List<string> ParseSourceFile(string path)
-        {
-            List<string> fileLiteral = new List<string>(File.ReadAllLines(path));
-            List<string> literalContents = new();
-
-            foreach (string line in fileLiteral)
-            {
-                if (LineContainsCharacters(line) && 
-                    (line.StartsWith("http://") || line.StartsWith("https://"))
-                )
-                {
-                    literalContents.Add(line);
-                }
-            }
-
-            return literalContents;
-        }
-
         public static List<ReleaseInfo> GatherSources()
         {
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources"))

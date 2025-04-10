@@ -32,7 +32,7 @@ namespace PygmyModManager
             // load reg values
             try
             {
-                LoadMods = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "LoadModsOnStartup", "YES") == "YES");
+                LoadMods = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "LoadModsOnStartup", "YES") == "YES");
             }
             catch (Exception _)
             {
@@ -41,16 +41,16 @@ namespace PygmyModManager
 
             try
             {
-                DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "DisplayName", null);
+                DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "DisplayName", null);
             }
             catch (Exception _)
             {
-                DisplayName = "PygmyModManager";
+                DisplayName = "Binx's Mod Manager";
             }
 
             try
             {
-                PreferenceInstall = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "PrefInstallDir", "steam");
+                PreferenceInstall = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "PrefInstallDir", "steam");
             }
             catch (Exception _)
             {
