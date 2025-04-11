@@ -2,9 +2,5 @@
 	{
 		"title": "MonkeModManager",
 		"link": "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json"
-	},
-	{
-		"title": "Binx's Mods",
-		"link": "https://raw.githubusercontent.com/sirkingbinx/dotfiles/refs/heads/master/binxs_mods.json"
 	}
 ]
