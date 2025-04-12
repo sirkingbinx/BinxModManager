@@ -48,42 +48,47 @@ namespace PygmyModManager.Utils
         bool dirty = false;
         bool loading = false;
 
+        bool selfLoaded = false;
+
         public Editor(string path = "")
         {
             InitializeComponent();
 
-            this.Text = "Text Editor";
-
-            cutToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            copyToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-
-            openToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
-            saveChangesToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
-
             OpenFile(path);
         }
 
-        void OpenFile(string path = "")
+        public Editor(string fileContent, string filename)
+        {
+            InitializeComponent();
+
+            OpenFile("", fileContent, filename);
+        }
+
+        void OpenFile(string path = "", string lines = null, string thisFilename = "none")
         {
             loading = true;
             string filename = "";
 
-            if (path == "")
+            selfLoaded = thisFilename != "none";
+
+            if (path == "" && thisFilename == "none")
             {
                 DialogResult userChoseFile = openFileDialog1.ShowDialog();
 
-                if (!(userChoseFile == DialogResult.OK)) return;
+                if (!(userChoseFile == DialogResult.OK)) Close();
                 filename = openFileDialog1.FileName;
             }
             else
             {
-                filename = path;
+                if (thisFilename != "none")
+                    filename = thisFilename;
+                else
+                    filename = path;
             }
 
             this.Text = "Text Editor - " + Path.GetFileName(filename);
-            fileLocationBox.Text = filename;
-            fileContentBox.Text = File.ReadAllText(filename);
+            fileLocationBox.Text = thisFilename != "none" ? thisFilename : filename;
+            fileContentBox.Text = lines == null ? File.ReadAllText(filename) : lines;
             loading = false;
         }
 
@@ -116,7 +121,7 @@ namespace PygmyModManager.Utils
         {
             string path = "";
 
-            if (fileLocationBox.Text == "")
+            if (fileLocationBox.Text == "" | selfLoaded == true)
             {
                 DialogResult doSaveIt = saveFileDialog1.ShowDialog();
 
@@ -181,6 +186,16 @@ namespace PygmyModManager.Utils
             saveFileDialog1 = new SaveFileDialog();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
+
+            this.Text = "Text Editor";
+
+            cutToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
+            copyToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+            pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
+
+            openToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+            saveChangesToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+
             // 
             // closeButton
             // 

@@ -1,113 +1,153 @@
+using Microsoft.Win32;
 using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 
-namespace PygmyModManager.Internals {
-    public class TextPlusPlus {
-        #region Comments
-        /*
-        cool format for config files
-        
-        this is a WIP thing but i'll do a lot more with it in the future
-        file extension .txp
-        */
-
-        #endregion
-        #region Checks
-
+namespace PygmyModManager.Internals
+{
+    public class TextPlusPlus
+    {
         private static bool LineContainsCharacters(string line)
         {
-            string validChars = "abcdefghijklmnopqrstuvwxyz123456789";
+            string validChars = "abcdefghijklmnopqrstuvwxyz123456789$";
 
             foreach (char c in line)
             {
-                if (line.ToLower().Contains(c))
-                    return true; break;
+                if (!validChars.ToLower().Contains(c))
+                    return false; break;
             }
 
-            return false;
+            return true;
         }
 
-        #endregion
-        #region Var handling
+        private static Dictionary<string, string> Variables = new();
 
-        Dictionary<string, string> vars = new();
-
-        public static void DeclareVariable(string name, object defaultValue)
+        public static void DefineVariable(string name, string value)
         {
-            vars.Add(name, defaultValue.ToString());
+            Variables.Add(name, value);
         }
 
-        private static bool IsVar(string thing) { return vars.ContainsKey(thing); }
-        private static string GrabVar(string thing) { return vars[thing]; }
+        public static string ParseLineForVariables(string line)
+        {
+            string nl = line;
 
-        #endregion
-        #region Parsing
+            if (line.Contains("$"))
+            {
+                string thisVarName = "";
 
-        private void IsSpecialCharacter(char character) {
-            string specialChars = "$= ";
+                for (int idx = line.IndexOf("$") + 1 /* skips the $ */; idx < line.Length; idx++)
+                {
+                    // remember your raw C syntax folks!
+                    // "" = string
+                    // '' = char
 
-            foreach (char specialC in specialChars) {
-                if (character == specialC) return true;
+                    if (line[idx] != ' ')
+                        thisVarName += line[idx];
+                    else
+                        break;
+                }
+
+                if (Variables.ContainsKey(thisVarName))
+                    nl.Replace($"${thisVarName}", Variables[thisVarName]);
+                else
+                    throw new Exception($"Variable {thisVarName} does not exist. Check docs.");
             }
 
-            return false;
+            return nl;
         }
 
-        // in this case, it returns:
-        // Literal line contents (if success), error (0 = no, 1 = yes), error info ("Success" if no errors)
-        public static (List<string>, int, string) ParseSourceFile(string path)
+        public static List<string> ParseSourceFile(string path)
         {
             List<string> fileLiteral = new List<string>(File.ReadAllLines(path));
             List<string> literalContents = new();
 
-            for (int i = 0; i < fileLiteral.Count; i++)
+            foreach (string line in fileLiteral)
             {
-                string line = fileLiteral[i];
-                string visualLine = (i + 1).ToString();
-
-                bool gatheringVarDetails = false;
-                string varNameCurrent = "";
-
-                if (LineContainsCharacters(line)) {
-                    string literalMeaning = "";
-
-                    foreach (char tc in line) do {
-                        // vars (get)
-                        if (IsSpecialCharacter(tc) && tc == "$" && gatheringVarDetails == false) {
-                            gatheringVarDetails = true;
-                            varNameCurrent = "";
-                        }
-
-                        // space
-                        if (IsSpecialCharacter(tc) && tc == " ") {
-                            if (gatheringVarDetails) {
-                                gatheringVarDetails = false;
-
-                                if (IsVar(varNameCurrent)) {
-                                literalMeaning += GrabVar(varNameCurrent);
-                                } else {
-                                    if (varNameCurrent == "") 
-                                        return (new List<string>(), 1, $"(txp) Line {visualLine}: GET Variable name cannot be empty or blank. Did you forget to add the name?");
-                                    else
-                                        return (new List<string>(), 1, $"(txp) Line {visualLine}: Undefined variable {varNameCurrent}. Check docs for correct vars?");
-                                
-                                }
-                            }
-                        }
-
-                        if (!IsSpecialCharacter(tc) && gatheringVarDetails == false)
-                            literalMeaning += tc;
-                        
-                        if (!IsSpecialCharacter(tc) && gatheringVarDetails == true)
-                            varNameCurrent += tc;
-                    }
-
-                    literalContents.Add(literalMeaning);
+                if (LineContainsCharacters(line) &&
+                    (line.StartsWith("http://") || line.StartsWith("https://"))
+                )
+                {
+                    literalContents.Add(line);
                 }
             }
 
-            return (literalContents, 0, "Success");
+            return literalContents;
+        }
+    }
+
+    // thanks StackOverflow
+
+    public class FileAssociation
+    {
+        public string Extension { get; set; }
+        public string ProgId { get; set; }
+        public string FileTypeDescription { get; set; }
+        public string ExecutableFilePath { get; set; }
+    }
+
+    public class FileAssociations
+    {
+        // needed so that Explorer windows get refreshed after the registry is updated
+        [System.Runtime.InteropServices.DllImport("Shell32.dll")]
+        private static extern int SHChangeNotify(int eventId, int flags, IntPtr item1, IntPtr item2);
+
+        private const int SHCNE_ASSOCCHANGED = 0x8000000;
+        private const int SHCNF_FLUSH = 0x1000;
+
+        public static void EnsureAssociationsSet()
+        {
+            var filePath = Process.GetCurrentProcess().MainModule.FileName;
+            EnsureAssociationsSet(
+                new FileAssociation
+                {
+                    Extension = ".ucs",
+                    ProgId = "UCS_Editor_File",
+                    FileTypeDescription = "UCS File",
+                    ExecutableFilePath = filePath
+                });
         }
 
-        #endregion
+        public static void EnsureAssociationsSet(params FileAssociation[] associations)
+        {
+            bool madeChanges = false;
+            foreach (var association in associations)
+            {
+                madeChanges |= SetAssociation(
+                    association.Extension,
+                    association.ProgId,
+                    association.FileTypeDescription,
+                    association.ExecutableFilePath);
+            }
+
+            if (madeChanges)
+            {
+                SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_FLUSH, IntPtr.Zero, IntPtr.Zero);
+            }
+        }
+
+        public static bool SetAssociation(string extension, string progId, string fileTypeDescription, string applicationFilePath)
+        {
+            bool madeChanges = false;
+            madeChanges |= SetKeyDefaultValue(@"Software\Classes\" + extension, progId);
+            madeChanges |= SetKeyDefaultValue(@"Software\Classes\" + progId, fileTypeDescription);
+            madeChanges |= SetKeyDefaultValue($@"Software\Classes\{progId}\shell\open\command", "\"" + applicationFilePath + "\" \"%1\"");
+            return madeChanges;
+        }
+
+        private static bool SetKeyDefaultValue(string keyPath, string value)
+        {
+            using (var key = Registry.CurrentUser.CreateSubKey(keyPath))
+            {
+                if (key.GetValue(null) as string != value)
+                {
+                    key.SetValue(null, value);
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

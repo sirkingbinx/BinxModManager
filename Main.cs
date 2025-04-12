@@ -5,6 +5,7 @@ using PygmyModManager.UtilForms;
 using PygmyModManager.Utils;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace PygmyModManager
 {
@@ -20,6 +21,8 @@ namespace PygmyModManager
         public Main()
         {
             InitializeComponent();
+
+            FileAssociations.SetAssociation(".txp", "KingBingusModManager", "BinxModManager Text++ sources file", Assembly.GetExecutingAssembly().Location);
 
             quitToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.F4;
 
@@ -41,7 +44,7 @@ namespace PygmyModManager
 
             try
             {
-                DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "DisplayName", null);
+                DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "DisplayName", "Binx's Mod Manager");
             }
             catch (Exception _)
             {

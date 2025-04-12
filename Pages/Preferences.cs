@@ -22,7 +22,7 @@ namespace PygmyModManager.Pages
             InitializeComponent();
             LoadSourcesVisual();
 
-            modMgrDisplayName.Text = Main.DisplayName != null ? Main.DisplayName : "PygmyModManager";
+            modMgrDisplayName.Text = Main.DisplayName != null ? Main.DisplayName : "Binx's Mod Manager";
             prefLoadSourcesOnStartup.Checked = Main.LoadMods;
 
             textBox1.Text = Main.InstallDir; // install directory textbox
@@ -75,10 +75,10 @@ namespace PygmyModManager.Pages
             }
 
             // (Sources) Load Sources on Startup
-            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "LoadModsOnStartup", this.prefLoadSourcesOnStartup.Checked ? "YES" : "NO");
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "LoadModsOnStartup", this.prefLoadSourcesOnStartup.Checked ? "YES" : "NO");
 
             // (Appearance) Display Name
-            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "DisplayName", this.modMgrDisplayName.Text);
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "DisplayName", this.modMgrDisplayName.Text);
 
             string preferenceInstall = "steam";
 
@@ -87,7 +87,7 @@ namespace PygmyModManager.Pages
             if (custombutton.Checked) preferenceInstall = "custom";
 
             // (Gorilla Tag) Default Loaded Install
-            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "PrefInstallDir", preferenceInstall);
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "PrefInstallDir", preferenceInstall);
 
             this.Close();
         }
@@ -100,7 +100,7 @@ namespace PygmyModManager.Pages
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new Editor(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.pygmysources").ShowDialog();
+            new Editor(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txp").ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)

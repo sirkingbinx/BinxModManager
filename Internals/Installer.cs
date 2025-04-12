@@ -62,7 +62,7 @@ namespace PygmyModManager.Internals
                     if (File.Exists(path))
                         File.Delete(path);
 
-                    File.WriteAllBytes(path, content);
+                    File.WriteAllBytes(path, content); // install
                     
                 } else if (Path.GetExtension(fileName).Equals(".zip")) {
                     using (MemoryStream ms = new MemoryStream(content))
