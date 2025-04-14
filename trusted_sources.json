@@ -2,5 +2,9 @@
 	{
 		"title": "MonkeModManager",
 		"link": "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json"
+	},
+	{
+		"title": "OculusReportMenu Builds",
+		"link": "https://raw.githubusercontent.com/sirkingbinx/OculusReportMenu/master/ORMBuilds.json"
 	}
 ]
