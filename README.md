@@ -18,6 +18,12 @@ Download the latest release from [here](https://github.com/sirkingbinx/BinxModMa
 
 Download source from latest release or from the master branch and build it with ``dotnet build``.
 
+## What's different from MMM?
+This mod manager has a couple key advantages over MMM:
+- It can grab mods from any list online, so there is no need for PRs to get your mod on the manager. Just add your own sources!
+- When avaliable, it will update the mods directly from GitHub itself, so you don't have to wait for the lists to update to get the latest releases.
+- It's much faster and simpler than MMM.
+
 ## Settings
 ### Sources
 - **Sources / All Sources**: A checklist of all the sources you have added. Uncheck any you don't want and click ``Close`` to remove them.
@@ -32,6 +38,7 @@ Download source from latest release or from the master branch and build it with 
 - **Appearance / Display Name**: Replaces `Binx's Mod Manager` in the titlebar, about page, and most other places it shows up.
 
 ## List Creation Guide
+### JSON
 Here is a base for a bunch of mods. You can choose to add either a ``git_path`` or a ``link``, you must have at least one of them.
 ```json
 [
@@ -51,3 +58,6 @@ Here is a base for a bunch of mods. You can choose to add either a ``git_path`` 
 ```
 
 It is based on the MMM `ReleaseInfo` class but slightly modified to remove stuff it doesn't actually need.
+
+### Verification
+If your members are consistantly hacked by people sharing fake lists of your mods, it may be worth a bit to get your list verified, which will show a [Verified] mark next to your list's URL. You can DM me on discord (`sirkingbinx`) if you want it verified.
