@@ -1,4 +1,4 @@
-# Binx's Mod Manager
+# Binx's Mod Manager ![downloads](https://img.shields.io/github/downloads/sirkingbinx/BinxModManager/total)
 This is my own personal mod manager thing that reads from MonkeModManager info lists.
 It is pretty configurable and comes with a couple baked in tools:
 
