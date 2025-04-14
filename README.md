@@ -5,10 +5,15 @@ It is pretty configurable and comes with a couple baked in tools:
 - **Text Editor**: Mostly used for editing mod configs, but can also edit the text++ config files that I use
 - **Source Manager**: You can change what and how many sources you want. You can add custom lists of mods.
 
-It also uses the GitHub API to get the latest release of any mod, so nobody has to update a list for your mod for it to update :+1:
-
 > [!NOTE]
 > Updating from github is based on docs found [here](https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28). Works given you provide a ``git_path`` in your release info.
+It also uses the GitHub API to get the latest release of any mod, so nobody has to update a list for your mod for it to update :+1:
+
+## Table of Contents
+- [Install](#install)
+- [Why exist](#whats-different-from-mmm)
+- [Settings](#settings)
+- [List Creation Guide](#list-creation-guide)
 
 ## Install
 ### From Releases
