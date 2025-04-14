@@ -1,18 +1,18 @@
-# PygmyModManager
-PygmyModManager is a fast and simple mod manager for Gorilla Tag (or most BepInEx-based games) that reads from MonkeModManager info lists.
+# Binx's Mod Manager
+This is my own personal mod manager thing that reads from MonkeModManager info lists.
 It is pretty configurable and comes with a couple baked in tools:
 
-- **Text Editor**: Mostly used for editing mod configs
+- **Text Editor**: Mostly used for editing mod configs, but can also edit the text++ config files that I use
 - **Source Manager**: You can change what and how many sources you want. You can add custom lists of mods.
 
 It also uses the GitHub API to get the latest release of any mod, so nobody has to update a list for your mod for it to update :+1:
 
 > [!NOTE]
-> Based on docs found [here](https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28). Works given you provide a ``git_path`` in your release info.
+> Updating from github is based on docs found [here](https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28). Works given you provide a ``git_path`` in your release info.
 
 ## Install
 ### From Releases
-Download the latest relase from [here](https://github.com/sirkingbinx/PygmyModManager/releases/latest).
+Download the latest release from [here](https://github.com/sirkingbinx/BinxModManager/releases/latest).
 ### From Source
 - Requires Visual Studio 2022
 
@@ -29,35 +29,23 @@ Download source from latest release or from the master branch and build it with 
 - **Gorilla Tag / Path**: The current path the game is using.
 
 ### Appearance
-- **Appearance / Display Name**: Replaces `PygmyModManager` in the titlebar, about page, and most other places it shows up.
+- **Appearance / Display Name**: Replaces `Binx's Mod Manager` in the titlebar, about page, and most other places it shows up.
 
 ## List Creation Guide
-Here is a base for a bunch of mods. Pygmy requires all of these, see the next example for optional items you can add.
+Here is a base for a bunch of mods. You can choose to add either a ``git_path`` or a ``link``, you must have at least one of them.
 ```json
 [
     {
         "name": "Mod",
         "author": "Author",
         "group": "Mod", // can be anything, it will be created when adding mods
-        "git_path": "user/repo", // git repo for source code
-        "link": "https://github.com/user/repo/releases/myfile.dll" // link to download latest release (the .dll itself, not the release page)
-    }
-]
-```
 
-If you need to define a custom place to install the mod or it has dependencies, define them like this.
-```json
-[
-    {
-        "name": "Mod",
-        "author": "Author",
-        "group": "Mod",
-        "installLocation": "", // eg. "" = game install folder, "BepInEx/plugins" = plugins folder
-        "dependencies": [
-            "Utilla"
-        ],
-        "git_path": "user/repo",
-        "link": "https://github.com/user/repo/releases/myfile.dll"
+        // use one of these two (one or the other)
+        "git_path": "user/repo", // git repo for source code
+        // NOTE: IF YOU HAVE MULTIPLE GIT RELEASES, IT WILL CHOOSE THE FIRST DLL!
+        // If you want it to download a specific one, set "link" instead and remove "git_path".
+
+        "link": "https://github.com/user/repo/releases/myfile.dll" // link to download latest release (the .dll itself, not the release page)
     }
 ]
 ```
