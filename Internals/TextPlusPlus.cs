@@ -51,8 +51,6 @@ namespace PygmyModManager.Internals
 
                 if (Variables.ContainsKey(thisVarName))
                     nl.Replace($"${thisVarName}", Variables[thisVarName]);
-                else
-                    throw new Exception($"Variable {thisVarName} does not exist. Check docs.");
             }
 
             return nl;
@@ -65,11 +63,9 @@ namespace PygmyModManager.Internals
 
             foreach (string line in fileLiteral)
             {
-                if (LineContainsCharacters(line) &&
-                    (line.StartsWith("http://") || line.StartsWith("https://"))
-                )
+                if (LineContainsCharacters(line)) &&
                 {
-                    literalContents.Add(line);
+                    literalContents.Add(ParseLineForVariables(line));
                 }
             }
 
