@@ -50,6 +50,12 @@ namespace PygmyModManager.Utils
 
         bool selfLoaded = false;
 
+        public Editor()
+        {
+            InitializeComponent();
+            OpenFile("", "new file");
+        }
+
         public Editor(string path = "")
         {
             InitializeComponent();
@@ -86,9 +92,18 @@ namespace PygmyModManager.Utils
                     filename = path;
             }
 
+            string fileContent = "";
+
+            try {
+                if (lines == null)
+                    fileContent = File.ReadAllText(filename);
+                else
+                    fileContent = lines;
+            } catch (Exception ex) { MessageBox.Show($"Error: {ex.Message}", "Error"); }
+
             this.Text = "Text Editor - " + Path.GetFileName(filename);
             fileLocationBox.Text = thisFilename != "none" ? thisFilename : filename;
-            fileContentBox.Text = lines == null ? File.ReadAllText(filename) : lines;
+            fileContentBox.Text = fileContent;
             loading = false;
         }
 

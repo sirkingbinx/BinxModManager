@@ -115,12 +115,12 @@ namespace PygmyModManager
 
         private void discordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.gg/monkemod");
+            try { Process.Start("https://discord.gg/monkemod"); } catch (Exception _) { };
         }
 
         private void binxDiscordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.gg/binx");
+            try { Process.Start("https://discord.gg/NtjvNHAbUj"); } catch (Exception _) { };
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)

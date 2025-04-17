@@ -71,12 +71,12 @@ namespace PygmyModManager.Internals
                         {
                             string installLocation = "";
 
-                            if (modInfo.InstallLocation != null)
-                                installLocation = modInfo.InstallLocation != "" ? Path.Combine(Main.InstallDir, modInfo.InstallLocation) : Main.InstallDir;
+                            if (modInfo.InstallLocation != "")
+                                installLocation = Path.Combine(Main.InstallDir, modInfo.InstallLocation);
                             else if (modInfo.Name == "BepInEx")
                                 installLocation = Main.InstallDir;
                             else
-                                installLocation = Path.Combine(Main.InstallDir, "BepInEx/plugins/");
+                                installLocation = Path.Combine(Main.InstallDir, "BepInEx/plugins");
 
                             unzip.ExtractToDirectory(installLocation);
                         }
