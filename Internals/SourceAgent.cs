@@ -19,7 +19,7 @@ namespace PygmyModManager.Internals
             HttpWebRequest RQuest = (HttpWebRequest)HttpWebRequest.Create(URL);
             RQuest.Method = "GET";
             RQuest.KeepAlive = true;
-            RQuest.UserAgent = "Monke-Mod-Manager";
+            RQuest.UserAgent = "BinxModManagerAPI";
 
             HttpWebResponse Response = (HttpWebResponse)RQuest.GetResponse();
             StreamReader Sr = new StreamReader(Response.GetResponseStream());
@@ -57,9 +57,7 @@ namespace PygmyModManager.Internals
             foreach (SourceInfo src in TrustSourceList)
             {
                 if (src.Link == URL)
-                {
                     return src;
-                }
             }
 
             return null;
@@ -78,7 +76,7 @@ namespace PygmyModManager.Internals
                 newFile.Add("");
                 newFile.Add("# To put the default MMM list, add a line that says $default");
                 newFile.Add("");
-                newFile.Add("https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json");
+                newFile.Add("$default");
 
                 File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txp", newFile);
             }
@@ -89,9 +87,7 @@ namespace PygmyModManager.Internals
             sources = TextPlusPlus.ParseSourceFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txp");
 
             if (sources.Count == 0)
-            {
                 sources.Add("https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json");
-            }
 
             List<ReleaseInfo> mods = new();
 
