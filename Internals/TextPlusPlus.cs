@@ -63,10 +63,8 @@ namespace PygmyModManager.Internals
 
             foreach (string line in fileLiteral)
             {
-                if (LineContainsCharacters(line)) &&
-                {
+                if (LineContainsCharacters(line))
                     literalContents.Add(ParseLineForVariables(line));
-                }
             }
 
             return literalContents;
