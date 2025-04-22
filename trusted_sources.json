@@ -1,10 +1,14 @@
 [
 	{
-		"title": "MonkeModManager",
+		"title": "modinfo.json - MonkeModManager",
 		"link": "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json"
 	},
 	{
-		"title": "OculusReportMenu Builds",
+		"title": "OculusReportMenu",
 		"link": "https://raw.githubusercontent.com/sirkingbinx/OculusReportMenu/master/ORMBuilds.json"
+	},
+	{
+		"title": "Cardboard",
+		"link": "https://raw.githubusercontent.com/sirkingbinx/cardboard/master/CardboardRelease.json"
 	}
 ]
