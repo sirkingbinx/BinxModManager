@@ -1,6 +1,6 @@
 [
 	{
-		"title": "modinfo.json - MonkeModManager",
+		"title": "MonkeModManager",
 		"link": "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json"
 	},
 	{
@@ -8,7 +8,7 @@
 		"link": "https://raw.githubusercontent.com/sirkingbinx/OculusReportMenu/master/ORMBuilds.json"
 	},
 	{
-		"title": "Cardboard",
+		"title": "CardboardLib",
 		"link": "https://raw.githubusercontent.com/sirkingbinx/cardboard/master/CardboardRelease.json"
 	}
 ]

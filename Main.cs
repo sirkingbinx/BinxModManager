@@ -21,9 +21,7 @@ namespace PygmyModManager
         public Main()
         {
             InitializeComponent();
-
-            FileAssociations.SetAssociation(".txp", "KingBingusModManager", "BinxModManager Text++ sources file", Assembly.GetExecutingAssembly().Location);
-
+            
             quitToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.F4;
 
             cutToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;

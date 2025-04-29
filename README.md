@@ -65,4 +65,4 @@ Here is a base for a bunch of mods. You can choose to add either a ``git_path`` 
 It is based on the MMM `ReleaseInfo` class but slightly modified to remove stuff it doesn't actually need.
 
 ### Verification
-If your members are consistantly hacked by people sharing fake lists of your mods, it may be worth a bit to get your list verified, which will show a [Verified] mark next to your list's URL. You can DM me on discord (`sirkingbinx`) if you want it verified.
+If your users are consistantly hacked by people sharing fake lists of your mods, it may be worth a bit to get your list verified, which will show a [Verified] mark next to your list's URL. You can DM me on discord (`sirkingbinx`) if you want it verified.

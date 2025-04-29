@@ -53,14 +53,17 @@ namespace PygmyModManager.Utils
         public Editor()
         {
             InitializeComponent();
-            OpenFile("", "new file");
+            OpenFile("", null, "new file");
         }
 
         public Editor(string path = "")
         {
             InitializeComponent();
 
-            OpenFile(path);
+            if (File.Exists(path))
+                OpenFile(path);
+            else
+                OpenFile("", null, Path.GetFileName(path));
         }
 
         public Editor(string fileContent, string filename)
