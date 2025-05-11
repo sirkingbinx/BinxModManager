@@ -34,6 +34,7 @@ This mod manager has a couple key advantages over MMM:
 - **Sources / All Sources**: A checklist of all the sources you have added. Uncheck any you don't want and click ``Close`` to remove them.
 - **Sources / Add**: Adds a source of your choice to the list.
 - **Sources / Load Mods on Startup**: You can remove loading the mods on startup if you want.
+- **Sources / Update via GitHub API**: When toggled on, will check for mod updates via. GitHub (if avaliable)
 
 ### Gorilla Tag
 - **Gorilla Tag / Prefered Install**: Choose which version of Gorilla Tag you want to use.
