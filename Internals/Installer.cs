@@ -22,7 +22,7 @@ namespace PygmyModManager.Internals
             return new WebClient().DownloadData(url);
         }
 
-        public static void InstallMods(ListView.CheckedListViewItemCollection items2Install, string InstallDir)
+        public static void InstallMods(ListView.CheckedListViewItemCollection items2Install, string InstallDir, bool UseGithub)
         {
             foreach (ListViewItem itemToInstall in items2Install)
             {
@@ -32,14 +32,24 @@ namespace PygmyModManager.Internals
                 string downloadURL = "";
                 byte[] content;
 
-                if (modInfo.GitPath != "NONE") {
+                if (modInfo.GitPath != "NONE" && UseGithub == true) {
                     // there is somewhere to get repos
                     string download_this_thing = SourceAgent.Repo_API_Endpoint + modInfo.GitPath + "/releases";
                     var releaseJSONData = JSON.Parse(SourceAgent.GatherWebContent(download_this_thing)).AsArray;
 
                     downloadURL = releaseJSONData[0]["assets"].AsArray[0]["browser_download_url"];
                 } else {
-                    downloadURL = modInfo.Link;
+                    if (modInfo.Link != "NONE")
+                        downloadURL = modInfo.Link;
+                    else
+                    {
+                        DialogResult thing = MessageBox.Show("No download link found for " + modInfo.Name + ". Contact list maintainers.", "Error (skippable)", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+
+                        if (thing == DialogResult.OK)
+                            continue;
+                        else if (thing == DialogResult.Cancel)
+                            return;
+                    }
                 }
 
                 try
@@ -62,21 +72,19 @@ namespace PygmyModManager.Internals
                     if (File.Exists(path))
                         File.Delete(path);
 
-                    File.WriteAllBytes(path, content); // install
+                    File.WriteAllBytes(path, content);
                     
                 } else if (Path.GetExtension(fileName).Equals(".zip")) {
                     using (MemoryStream ms = new MemoryStream(content))
                     {
                         using (var unzip = new Unzip(ms))
                         {
-                            string installLocation = "";
+                            string installLocation = Path.Combine(Main.InstallDir, "BepInEx/plugins");
 
                             if (modInfo.InstallLocation != "")
                                 installLocation = Path.Combine(Main.InstallDir, modInfo.InstallLocation);
                             else if (modInfo.Name == "BepInEx")
                                 installLocation = Main.InstallDir;
-                            else
-                                installLocation = Path.Combine(Main.InstallDir, "BepInEx/plugins");
 
                             unzip.ExtractToDirectory(installLocation);
                         }

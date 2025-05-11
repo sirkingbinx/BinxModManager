@@ -52,6 +52,7 @@
             modMgrDisplayName = new TextBox();
             modMgrDisplayNameLabel = new Label();
             infoLabel = new Label();
+            getGitHubReleases = new CheckBox();
             tabControl1.SuspendLayout();
             sourcesPrefPage.SuspendLayout();
             gtPrefPage.SuspendLayout();
@@ -81,6 +82,7 @@
             // 
             // sourcesPrefPage
             // 
+            sourcesPrefPage.Controls.Add(getGitHubReleases);
             sourcesPrefPage.Controls.Add(linkLabel1);
             sourcesPrefPage.Controls.Add(sourcesListVisual);
             sourcesPrefPage.Controls.Add(sourceHelpLabel);
@@ -99,7 +101,7 @@
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
-            linkLabel1.Location = new Point(6, 286);
+            linkLabel1.Location = new Point(7, 249);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(226, 15);
             linkLabel1.TabIndex = 7;
@@ -112,7 +114,7 @@
             sourcesListVisual.CheckBoxes = true;
             sourcesListVisual.Location = new Point(7, 32);
             sourcesListVisual.Name = "sourcesListVisual";
-            sourcesListVisual.Size = new Size(389, 223);
+            sourcesListVisual.Size = new Size(389, 185);
             sourcesListVisual.TabIndex = 6;
             sourcesListVisual.UseCompatibleStateImageBehavior = false;
             sourcesListVisual.View = View.List;
@@ -128,14 +130,14 @@
             // 
             // sourcesAddTxtVisual
             // 
-            sourcesAddTxtVisual.Location = new Point(7, 259);
+            sourcesAddTxtVisual.Location = new Point(7, 223);
             sourcesAddTxtVisual.Name = "sourcesAddTxtVisual";
             sourcesAddTxtVisual.Size = new Size(327, 23);
             sourcesAddTxtVisual.TabIndex = 4;
             // 
             // sourcesAddBtnVisual
             // 
-            sourcesAddBtnVisual.Location = new Point(339, 259);
+            sourcesAddBtnVisual.Location = new Point(339, 223);
             sourcesAddBtnVisual.Name = "sourcesAddBtnVisual";
             sourcesAddBtnVisual.Size = new Size(57, 23);
             sourcesAddBtnVisual.TabIndex = 3;
@@ -157,7 +159,7 @@
             prefLoadSourcesOnStartup.AutoSize = true;
             prefLoadSourcesOnStartup.Checked = true;
             prefLoadSourcesOnStartup.CheckState = CheckState.Checked;
-            prefLoadSourcesOnStartup.Location = new Point(7, 331);
+            prefLoadSourcesOnStartup.Location = new Point(11, 278);
             prefLoadSourcesOnStartup.Name = "prefLoadSourcesOnStartup";
             prefLoadSourcesOnStartup.Size = new Size(154, 19);
             prefLoadSourcesOnStartup.TabIndex = 0;
@@ -297,6 +299,18 @@
             infoLabel.Size = new Size(0, 15);
             infoLabel.TabIndex = 2;
             // 
+            // getGitHubReleases
+            // 
+            getGitHubReleases.AutoSize = true;
+            getGitHubReleases.Checked = true;
+            getGitHubReleases.CheckState = CheckState.Checked;
+            getGitHubReleases.Location = new Point(11, 303);
+            getGitHubReleases.Name = "getGitHubReleases";
+            getGitHubReleases.Size = new Size(181, 19);
+            getGitHubReleases.TabIndex = 8;
+            getGitHubReleases.Text = "Get Updates from GitHub API";
+            getGitHubReleases.UseVisualStyleBackColor = true;
+            // 
             // Preferences
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -346,5 +360,6 @@
         private Label label2;
         private Label label3;
         private Button button2;
+        private CheckBox getGitHubReleases;
     }
 }

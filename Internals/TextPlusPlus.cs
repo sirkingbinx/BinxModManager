@@ -32,12 +32,8 @@ namespace PygmyModManager.Internals
             {
                 string thisVarName = "";
 
-                for (int idx = line.IndexOf("$") + 1 /* skips the $ */; idx < line.Length; idx++)
+                for (int idx = line.IndexOf("$") + 1; idx < line.Length; idx++)
                 {
-                    // remember your raw C syntax folks!
-                    // "" = string
-                    // '' = char
-
                     if (line[idx] != ' ')
                         thisVarName += line[idx];
                     else
@@ -58,7 +54,7 @@ namespace PygmyModManager.Internals
 
             foreach (string line in fileLiteral)
             {
-                if (LineContainsCharacters(line))
+                if (LineContainsCharacters(line) && line != "")
                     literalContents.Add(ParseLineForVariables(line));
             }
 

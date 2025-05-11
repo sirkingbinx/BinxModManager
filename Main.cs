@@ -14,6 +14,7 @@ namespace PygmyModManager
         public static List<ReleaseInfo> Mods = new();
         public static string DisplayName;
         public static bool LoadMods;
+        public static bool UseGithub;
         public static string PreferenceInstall = "steam";
 
         public static string InstallDir = @"";
@@ -35,16 +36,25 @@ namespace PygmyModManager
             {
                 LoadMods = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "LoadModsOnStartup", "YES") == "YES");
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 LoadMods = true;
             }
 
             try
             {
+                UseGithub = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "UseGithubAPI", "YES") == "YES");
+            }
+            catch (Exception)
+            {
+                UseGithub = true;
+            }
+
+            try
+            {
                 DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "DisplayName", "Binx's Mod Manager");
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 DisplayName = "Binx's Mod Manager";
             }
@@ -67,10 +77,7 @@ namespace PygmyModManager
             this.Text = DisplayName;
         }
 
-        private void searchBox_TextChanged(object sender, EventArgs e)
-        {
-            RenderMods();
-        }
+        private void searchBox_TextChanged(object sender, EventArgs e) => RenderMods();
 
         public void AssignGroupToMod(ReleaseInfo mod, ListViewItem item)
         {
@@ -121,25 +128,11 @@ namespace PygmyModManager
             try { Process.Start("https://discord.gg/NtjvNHAbUj"); } catch (Exception _) { };
         }
 
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
 
-        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.searchBox.Cut();
-        }
-
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.searchBox.Copy();
-        }
-
-        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.searchBox.Paste();
-        }
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e) => this.searchBox.Cut();
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e) => this.searchBox.Copy();
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e) => this.searchBox.Paste();
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -147,20 +140,15 @@ namespace PygmyModManager
             RenderMods();
         }
 
-        private void textEditorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new Utils.Editor().Show();
-        }
+        private void textEditorToolStripMenuItem_Click(object sender, EventArgs e) => new Editor().Show();
 
-        private void bepInExConfigToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void bepInExConfigToolStripMenuItem_Click(object sender, EventArgs e) =>
             new Editor(Path.Combine(Main.InstallDir, @"BepInEx\config\BepInEx.cfg")).ShowDialog();
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            Installer.InstallMods(modView.CheckedItems, InstallDir);
+            Installer.InstallMods(modView.CheckedItems, InstallDir, UseGithub);
             button1.Enabled = true;
         }
     }

@@ -16,27 +16,35 @@ namespace PygmyModManager.Internals
 
         public static string GatherWebContent(string URL)
         {
-            HttpWebRequest RQuest = (HttpWebRequest)HttpWebRequest.Create(URL);
-            RQuest.Method = "GET";
-            RQuest.KeepAlive = true;
-            RQuest.UserAgent = "BinxModManagerAPI";
-
-            HttpWebResponse Response = (HttpWebResponse)RQuest.GetResponse();
-            StreamReader Sr = new StreamReader(Response.GetResponseStream());
-            string Code = Sr.ReadToEnd();
-            Sr.Close();
-            return Code;
-
-            /*
-            var webRequest = WebRequest.Create(URL);
-
-            using (var response = webRequest.GetResponse())
-            using (var content = response.GetResponseStream())
-            using (var reader = new StreamReader(content))
+            try
             {
-                return reader.ReadToEnd();
+                HttpWebRequest RQuest = (HttpWebRequest)HttpWebRequest.Create(URL);
+                RQuest.Method = "GET";
+                RQuest.KeepAlive = true;
+                RQuest.UserAgent = "BinxModManagerAPI";
+
+                HttpWebResponse Response = (HttpWebResponse)RQuest.GetResponse();
+                StreamReader Sr = new StreamReader(Response.GetResponseStream());
+                string Code = Sr.ReadToEnd();
+                Sr.Close();
+                return Code;
+
+                /*
+                var webRequest = WebRequest.Create(URL);
+
+                using (var response = webRequest.GetResponse())
+                using (var content = response.GetResponseStream())
+                using (var reader = new StreamReader(content))
+                {
+                    return reader.ReadToEnd();
+                }
+                */
             }
-            */
+            catch (WebException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return "";
+            }
         }
 
         public static bool IsTrustedSource(string URL)
@@ -65,7 +73,7 @@ namespace PygmyModManager.Internals
 
         public static List<ReleaseInfo> GatherSources()
         {
-            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txp"))
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txt"))
             {
                 // sets a default file
                 List<string> newFile = new();
@@ -76,15 +84,15 @@ namespace PygmyModManager.Internals
                 newFile.Add("");
                 newFile.Add("# To put the default MMM list, add a line that says $default");
                 newFile.Add("");
-                newFile.Add("$default");
+                newFile.Add("https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json");
 
-                File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txp", newFile);
+                File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txt", newFile);
             }
 
             TextPlusPlus.DefineVariable("default", "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json");
             // ^^^^^^^^ $default
 
-            sources = TextPlusPlus.ParseSourceFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txp");
+            sources = TextPlusPlus.ParseSourceFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txt");
 
             if (sources.Count == 0)
                 sources.Add("https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json");

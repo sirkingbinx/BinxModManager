@@ -36,7 +36,7 @@ namespace PygmyModManager.Pages
                     oculusbtn.Select();
                     break;
                 case "custom":
-                    oculusbtn.Select();
+                    custombutton.Select();
                     break;
             }
         }
@@ -74,12 +74,14 @@ namespace PygmyModManager.Pages
                 SourceAgent.sources.Add(checkedItem.SubItems[0].Text);
             }
 
-            // (Sources) Load Sources on Startup
+            // (Sources)
             Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "LoadModsOnStartup", this.prefLoadSourcesOnStartup.Checked ? "YES" : "NO");
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "UseGithubAPI", this.getGitHubReleases.Checked ? "YES" : "NO");
 
-            // (Appearance) Display Name
+            // (Appearance)
             Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "DisplayName", this.modMgrDisplayName.Text);
 
+            // (Gorilla Tag)
             string preferenceInstall = "steam";
 
             if (steambtn.Checked) preferenceInstall = "steam";
@@ -100,7 +102,7 @@ namespace PygmyModManager.Pages
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new Editor(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txp").ShowDialog();
+            new Editor(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txt").ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)

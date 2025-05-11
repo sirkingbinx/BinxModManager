@@ -143,17 +143,26 @@ namespace PygmyModManager.Internals
 
         private static string GetOculusLocation()
         {
-            string p = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Oculus VR, LLC\Oculus\Libraries\7d86f29a-10d1-4d60-abca-7e96666fda76", "OriginalPath", "");
+            string p = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Oculus VR, LLC\Oculus\Libraries\5e28d067-5208-4e12-be88-2203f0b3626e", "OriginalPath", "");
             
             if (p != "")
-                return p + @"\Software\another-axiom-gorilla-tag";
+                return Path.Combine(p + @"\Software\another-axiom-gorilla-tag");
 
             return "";
         }
 
         private static string GetCustomLocation()
         {
-            return (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "LocalUserGTPath", "");
+            string dir = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\PygmyModManager", "LocalUserGTPath", "");
+
+            if (dir == "")
+            {
+                FolderBrowserDialog folderBrowserDialog = new();
+                folderBrowserDialog.Description = "Select the Gorilla Tag install directory";
+                folderBrowserDialog.ShowDialog();
+            }
+
+            return dir;
         }
     }
 }
