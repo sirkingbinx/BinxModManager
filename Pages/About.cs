@@ -27,9 +27,10 @@ namespace PygmyModManager.UtilForms
         private void button1_Click(object sender, EventArgs e)
         {
             string content = """
-                MIT License
+                https://github.com/sirkingbinx/BinxModManager
 
-                Copyright (c) 2025 King Bingus
+                MIT License
+                Copyright (c) 2025 bingus
 
                 Permission is hereby granted, free of charge, to any person obtaining a copy
                 of this software and associated documentation files (the "Software"), to deal

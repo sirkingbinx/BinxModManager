@@ -1,6 +1,7 @@
 using Microsoft.Win32;
 using PygmyModManager.Classes;
 using PygmyModManager.Internals;
+using PygmyModManager.Internals.SimpleJSON;
 using PygmyModManager.UtilForms;
 using PygmyModManager.Utils;
 using System.Diagnostics;
@@ -12,7 +13,7 @@ namespace PygmyModManager
     public partial class Main : Form
     {
         public static List<ReleaseInfo> Mods = new();
-        public static string DisplayName;
+        public static string DisplayName = "";
         public static bool LoadMods;
         public static bool UseGithub;
         public static string PreferenceInstall = "steam";
@@ -22,7 +23,7 @@ namespace PygmyModManager
         public Main()
         {
             InitializeComponent();
-            
+
             quitToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.F4;
 
             cutToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
@@ -30,6 +31,9 @@ namespace PygmyModManager
             pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
 
             preferencesToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
+
+#pragma warning disable CS8600
+#pragma warning disable CS8601
 
             // load reg values
             try
@@ -63,19 +67,26 @@ namespace PygmyModManager
             {
                 PreferenceInstall = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "PrefInstallDir", "steam");
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 PreferenceInstall = "steam";
             }
 
+#pragma warning restore CS8600
+#pragma warning restore CS8601
+#pragma warning disable CS8604
+
             if (LoadMods)
                 Mods = SourceAgent.GatherSources();
-                RenderMods();
+
+            RenderMods();
 
             InstallDir = FindGorillaTag.GetLocation(PreferenceInstall);
 
             this.Text = DisplayName;
         }
+
+#pragma warning restore CS8604
 
         private void searchBox_TextChanged(object sender, EventArgs e) => RenderMods();
 
@@ -120,12 +131,14 @@ namespace PygmyModManager
 
         private void discordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try { Process.Start("https://discord.gg/monkemod"); } catch (Exception _) { };
+            try { Process.Start("https://discord.gg/monkemod"); } catch (Exception) { }
+            ;
         }
 
         private void binxDiscordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try { Process.Start("https://discord.gg/NtjvNHAbUj"); } catch (Exception _) { };
+            try { Process.Start("https://discord.gg/NtjvNHAbUj"); } catch (Exception) { }
+            ;
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();

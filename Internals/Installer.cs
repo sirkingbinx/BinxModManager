@@ -2,11 +2,13 @@
 using PygmyModManager.Internals.SimpleJSON;
 using System.Net;
 
+#pragma warning disable SYSLIB0014
+
 namespace PygmyModManager.Internals
 {
     public class Installer
     {
-        public static ReleaseInfo GetReleaseInfoFromMod(string modName)
+        public static ReleaseInfo? GetReleaseInfoFromMod(string modName)
         {
             foreach (ReleaseInfo mod in Main.Mods)
             {
@@ -26,9 +28,11 @@ namespace PygmyModManager.Internals
         {
             foreach (ListViewItem itemToInstall in items2Install)
             {
-                ReleaseInfo modInfo = GetReleaseInfoFromMod(itemToInstall.Text);
-                if (modInfo == null) continue;
-                
+                ReleaseInfo? modInfo = GetReleaseInfoFromMod(itemToInstall.Text);
+
+                if (modInfo == null)
+                    continue;
+
                 string downloadURL = "";
                 byte[] content;
 

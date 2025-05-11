@@ -1,8 +1,9 @@
 ﻿using PygmyModManager.Classes;
 using PygmyModManager.Internals.SimpleJSON;
-using PygmyModManager.Properties;
 using System.Diagnostics;
 using System.Net;
+
+#pragma warning disable SYSLIB0014
 
 namespace PygmyModManager.Internals
 {
@@ -60,7 +61,7 @@ namespace PygmyModManager.Internals
             return false;
         }
 
-        public static SourceInfo GetSourceInfo(string URL)
+        public static SourceInfo? GetSourceInfo(string URL)
         {
             foreach (SourceInfo src in TrustSourceList)
             {
@@ -117,7 +118,7 @@ namespace PygmyModManager.Internals
             var allSrc = srclist.AsArray;
 
             var thisCurrent = allSrc[0];
-            Pygmy_API_Endpoint = "https://api.github.com/repos/sirkingbinx/PygmyModManager/";
+            Pygmy_API_Endpoint = "https://api.github.com/repos/sirkingbinx/BinxModManager/";
             Repo_API_Endpoint = "https://api.github.com/repos/";
 
             for (int i = 0; i < allSrc.Count; i++)
