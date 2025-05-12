@@ -1,4 +1,5 @@
-﻿using PygmyModManager.Classes;
+﻿using Microsoft.VisualBasic.Logging;
+using PygmyModManager.Classes;
 using PygmyModManager.Internals.SimpleJSON;
 using System.Net;
 
@@ -41,7 +42,17 @@ namespace PygmyModManager.Internals
                     string download_this_thing = SourceAgent.Repo_API_Endpoint + modInfo.GitPath + "/releases";
                     var releaseJSONData = JSON.Parse(SourceAgent.GatherWebContent(download_this_thing)).AsArray;
 
-                    downloadURL = releaseJSONData[0]["assets"].AsArray[0]["browser_download_url"];
+                    downloadURL = "";
+
+                    // find the latest STABLE release
+                    for (int idx = 0; idx < releaseJSONData.Count; idx++)
+                    {
+                        if (releaseJSONData[idx]["draft"] == true | releaseJSONData[idx]["prerelease"] == true) { continue; }
+                        else
+                        {
+                            downloadURL = releaseJSONData[idx]["assets"].AsArray[0]["browser_download_url"]; break;
+                        }
+                    }
                 } else {
                     if (modInfo.Link != "NONE")
                         downloadURL = modInfo.Link;

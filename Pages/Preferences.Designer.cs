@@ -32,6 +32,7 @@
             button1 = new Button();
             tabControl1 = new TabControl();
             sourcesPrefPage = new TabPage();
+            getGitHubReleases = new CheckBox();
             linkLabel1 = new LinkLabel();
             sourcesListVisual = new ListView();
             sourceHelpLabel = new Label();
@@ -52,7 +53,6 @@
             modMgrDisplayName = new TextBox();
             modMgrDisplayNameLabel = new Label();
             infoLabel = new Label();
-            getGitHubReleases = new CheckBox();
             tabControl1.SuspendLayout();
             sourcesPrefPage.SuspendLayout();
             gtPrefPage.SuspendLayout();
@@ -97,6 +97,18 @@
             sourcesPrefPage.TabIndex = 0;
             sourcesPrefPage.Text = "Sources";
             sourcesPrefPage.UseVisualStyleBackColor = true;
+            // 
+            // getGitHubReleases
+            // 
+            getGitHubReleases.AutoSize = true;
+            getGitHubReleases.Checked = true;
+            getGitHubReleases.CheckState = CheckState.Checked;
+            getGitHubReleases.Location = new Point(11, 303);
+            getGitHubReleases.Name = "getGitHubReleases";
+            getGitHubReleases.Size = new Size(181, 19);
+            getGitHubReleases.TabIndex = 8;
+            getGitHubReleases.Text = "Get Updates from GitHub API";
+            getGitHubReleases.UseVisualStyleBackColor = true;
             // 
             // linkLabel1
             // 
@@ -298,18 +310,6 @@
             infoLabel.Name = "infoLabel";
             infoLabel.Size = new Size(0, 15);
             infoLabel.TabIndex = 2;
-            // 
-            // getGitHubReleases
-            // 
-            getGitHubReleases.AutoSize = true;
-            getGitHubReleases.Checked = true;
-            getGitHubReleases.CheckState = CheckState.Checked;
-            getGitHubReleases.Location = new Point(11, 303);
-            getGitHubReleases.Name = "getGitHubReleases";
-            getGitHubReleases.Size = new Size(181, 19);
-            getGitHubReleases.TabIndex = 8;
-            getGitHubReleases.Text = "Get Updates from GitHub API";
-            getGitHubReleases.UseVisualStyleBackColor = true;
             // 
             // Preferences
             // 

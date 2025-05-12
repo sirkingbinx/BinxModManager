@@ -20,6 +20,7 @@ namespace PygmyModManager
 
         public static string InstallDir = @"";
 
+        public static bool EnableLogging = false;
         public Main()
         {
             InitializeComponent();
@@ -70,6 +71,15 @@ namespace PygmyModManager
             catch (Exception)
             {
                 PreferenceInstall = "steam";
+            }
+
+            try
+            {
+                EnableLogging = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "LiveLogging", "NO") == "YES";
+            }
+            catch (Exception)
+            {
+                EnableLogging = false;
             }
 
 #pragma warning restore CS8600
