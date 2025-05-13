@@ -100,14 +100,13 @@ namespace PygmyModManager.Pages
             LoadSourcesVisual();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            new Editor(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\sources.txt").ShowDialog();
-        }
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) =>
+            new Editor(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + 
+                @"\sources.txt"
+            ).ShowDialog();
 
-        private void button2_Click(object sender, EventArgs e)
-        {
+        private void button2_Click(object sender, EventArgs e) =>
             Process.Start(Main.InstallDir + @"\");
-        }
     }
 }

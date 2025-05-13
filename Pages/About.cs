@@ -14,15 +14,11 @@ namespace PygmyModManager.UtilForms
 {
     public partial class About : Form
     {
-        public About()
-        {
+        public About() =>
             InitializeComponent();
-        }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
+        private void button2_Click(object sender, EventArgs e) =>
             this.Close();
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
