@@ -4,10 +4,6 @@
 		"link": "https://raw.githubusercontent.com/The-Graze/MonkeModInfo/master/modinfo.json"
 	},
 	{
-		"title": "OculusReportMenu",
-		"link": "https://raw.githubusercontent.com/sirkingbinx/OculusReportMenu/master/ORMBuilds.json"
-	},
-	{
 		"title": "CardboardLib",
 		"link": "https://raw.githubusercontent.com/sirkingbinx/cardboard/master/CardboardRelease.json"
 	}
