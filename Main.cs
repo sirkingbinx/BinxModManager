@@ -13,14 +13,51 @@ namespace PygmyModManager
     public partial class Main : Form
     {
         public static List<ReleaseInfo> Mods = new();
-        public static string DisplayName = "";
-        public static bool LoadMods;
-        public static bool UseGithub;
+        public static string DisplayName = "BinxModManager";
+        public static bool LoadMods = true;
+        public static bool UseGithub = true;
         public static string PreferenceInstall = "steam";
 
         public static string InstallDir = @"";
 
         public static bool EnableLogging = false;
+
+        public enum ReturnType {
+            String = 1,
+            Bool = 2,
+        }
+
+        public object LoadRegistryValue(string regPath, string regKey, object defaultValue, ReturnType _returnType)
+        {
+            object regValue = null;
+            
+            switch (_returnType)
+            {
+                case (ReturnType.Bool):
+                    string reg = (string)Registry.GetValue(regPath, regKey, defaultValue)
+
+                    if (reg != null)
+                        regValue = (reg == "YES");
+                    else
+                        regValue = defaultValue;
+
+                    break;
+                case (ReturnType.String):
+                    string reg = (string)Registry.GetValue(regPath, regKey, defaultValue)
+
+                    if (reg != null)
+                        regValue = reg;
+                    else
+                        regValue = defaultValue;
+
+                    break;
+                default:
+                    throw new Exception("no recognized return type was provided");
+            }
+
+            return regValue;
+        }
+        
         public Main()
         {
             InitializeComponent();
@@ -33,58 +70,10 @@ namespace PygmyModManager
 
             preferencesToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
 
-#pragma warning disable CS8600
-#pragma warning disable CS8601
-
-            // load reg values
-            try
-            {
-                LoadMods = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "LoadModsOnStartup", "YES") == "YES");
-            }
-            catch (Exception)
-            {
-                LoadMods = true;
-            }
-
-            try
-            {
-                UseGithub = ((string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "UseGithubAPI", "YES") == "YES");
-            }
-            catch (Exception)
-            {
-                UseGithub = true;
-            }
-
-            try
-            {
-                DisplayName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "DisplayName", "Binx's Mod Manager");
-            }
-            catch (Exception)
-            {
-                DisplayName = "Binx's Mod Manager";
-            }
-
-            try
-            {
-                PreferenceInstall = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "PrefInstallDir", "steam");
-            }
-            catch (Exception)
-            {
-                PreferenceInstall = "steam";
-            }
-
-            try
-            {
-                EnableLogging = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "LiveLogging", "NO") == "YES";
-            }
-            catch (Exception)
-            {
-                EnableLogging = false;
-            }
-
-#pragma warning restore CS8600
-#pragma warning restore CS8601
-#pragma warning disable CS8604
+            LoadMods = LoadRegistryValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "LoadModsOnStartup", "YES", ReturnType.Bool);
+            UseGitHub = LoadRegistryValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "UseGithubAPI", "YES", ReturnType.Bool);
+            DisplayName = LoadRegistryValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "DisplayName", "BinxModManager", ReturnType.String);
+            PreferenceInstall = LoadRegistryValue(@"HKEY_CURRENT_USER\SOFTWARE\KingBingus\ModManager", "PrefInstallDir", "steam", ReturnType.String);
 
             if (LoadMods)
                 Mods = SourceAgent.GatherSources();
@@ -95,8 +84,6 @@ namespace PygmyModManager
 
             this.Text = DisplayName;
         }
-
-#pragma warning restore CS8604
 
         private void searchBox_TextChanged(object sender, EventArgs e) => RenderMods();
 
@@ -134,22 +121,16 @@ namespace PygmyModManager
             }
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) =>
             new About().ShowDialog();
-        }
 
-        private void discordToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void discordToolStripMenuItem_Click(object sender, EventArgs e) =>
             try { Process.Start("https://discord.gg/monkemod"); } catch (Exception) { }
             ;
-        }
 
-        private void binxDiscordToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void binxDiscordToolStripMenuItem_Click(object sender, EventArgs e) =>
             try { Process.Start("https://discord.gg/NtjvNHAbUj"); } catch (Exception) { }
             ;
-        }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
 
